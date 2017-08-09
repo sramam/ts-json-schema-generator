@@ -54,11 +54,14 @@
     "@types/node": "^8.0.17",
     "ajv": "~5.2.2",
     "chai": "~4.1.0",
+    "husky": "^0.14.3",
     "mocha": "~3.4.2",
     "source-map-support": "~0.4.15",
     "tslint": "~5.5.0"
   },
   "scripts": {
+    "precommit": "npm test && git-mods --staged-ok",
+    "prepush": "npm test && git-mods",
     "prepublish": "npm run build",
     "preversion": "npm run lint && npm run test",
     "build": "tsc -p .",
