@@ -19,8 +19,9 @@ export class IndexedAccessTypeNodeParser implements SubNodeParser {
 
         return new EnumType(
             `indexed-type-${node.getFullStart()}`,
+            symbol ?
             (<any>symbol.valueDeclaration).type.elementTypes.map((memberType: ts.Node) =>
-                this.childNodeParser.createType(memberType, context)),
+                this.childNodeParser.createType(memberType, context)) : [],
         );
     }
 }
