@@ -92,3 +92,5 @@ export * from "./src/NodeParser/TupleNodeParser";
 export * from "./src/NodeParser/AnnotatedNodeParser";
 
 export * from "./src/SchemaGenerator";
+
+export { factory } from "./factory";

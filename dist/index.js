@@ -82,4 +82,6 @@ __export(require("./src/NodeParser/UnionNodeParser"));
 __export(require("./src/NodeParser/TupleNodeParser"));
 __export(require("./src/NodeParser/AnnotatedNodeParser"));
 __export(require("./src/SchemaGenerator"));
+var factory_1 = require("./factory");
+exports.factory = factory_1.factory;
 //# sourceMappingURL=index.js.map
