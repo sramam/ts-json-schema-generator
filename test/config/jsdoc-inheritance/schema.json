@@ -1,41 +1,41 @@
 {
-  "$ref": "#/definitions/MyObject",
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "definitions": {
-    "Base": {
-      "additionalProperties": false,
-      "properties": {
-        "bar": {
-          "description": "Base comment.",
-          "type": "number"
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "definitions": {
+        "main.MyObject": {
+            "type": "object",
+            "properties": {
+                "foo": {
+                    "type": "number",
+                    "description": "Interface comment."
+                },
+                "bar": {
+                    "type": "number"
+                }
+            },
+            "required": [
+                "bar",
+                "foo"
+            ],
+            "additionalProperties": false
         },
-        "foo": {
-          "description": "Base comment.",
-          "type": "number"
+        "main.Base": {
+            "type": "object",
+            "properties": {
+                "foo": {
+                    "type": "number",
+                    "description": "Base comment."
+                },
+                "bar": {
+                    "type": "number",
+                    "description": "Base comment."
+                }
+            },
+            "required": [
+                "foo",
+                "bar"
+            ],
+            "additionalProperties": false
         }
-      },
-      "required": [
-        "foo",
-        "bar"
-      ],
-      "type": "object"
     },
-    "MyObject": {
-      "additionalProperties": false,
-      "properties": {
-        "bar": {
-          "type": "number"
-        },
-        "foo": {
-          "description": "Interface comment.",
-          "type": "number"
-        }
-      },
-      "required": [
-        "bar",
-        "foo"
-      ],
-      "type": "object"
-    }
-  }
+    "$ref": "#/definitions/main.MyObject"
 }

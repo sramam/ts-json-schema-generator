@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
-        "MyObject": {
+        "main.MyObject": {
             "type": "object",
             "properties": {
                 "value": {
@@ -9,7 +9,7 @@
                     "additionalProperties": {
                         "anyOf": [
                             {
-                                "$ref": "#/definitions/A"
+                                "$ref": "#/definitions/main.A"
                             },
                             {
                                 "type": [
@@ -34,7 +34,7 @@
             ],
             "additionalProperties": false
         },
-        "A": {
+        "main.A": {
             "type": "object",
             "properties": {
                 "bar": {
@@ -46,7 +46,7 @@
             ],
             "additionalProperties": false
         },
-        "B": {
+        "main.B": {
             "type": "object",
             "additionalProperties": {
                 "type": [
@@ -55,12 +55,12 @@
                 ]
             }
         },
-        "C": {
+        "main.C": {
             "type": "object",
             "additionalProperties": {
                 "anyOf": [
                     {
-                        "$ref": "#/definitions/A"
+                        "$ref": "#/definitions/main.A"
                     },
                     {
                         "type": "number"
@@ -69,5 +69,5 @@
             }
         }
     },
-    "$ref": "#/definitions/MyObject"
+    "$ref": "#/definitions/main.MyObject"
 }

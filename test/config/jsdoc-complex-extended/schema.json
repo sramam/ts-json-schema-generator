@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
-        "MyObject": {
+        "main.MyObject": {
             "type": "object",
             "properties": {
                 "stringValue": {
@@ -13,11 +13,26 @@
                 },
                 "numberValue": {
                     "type": "integer",
-                    "title": "Number field title",
                     "description": "This field is of integer type.\nInteger!",
+                    "title": "Number field title",
                     "maximum": 10,
                     "exclusiveMaximum": true,
                     "multipleOf": 3
+                },
+                "exportString": {
+                    "description": "Export field description",
+                    "default": {
+                        "length": 10
+                    },
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/main.MyExportString",
+                            "nullable": ""
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "privateString": {
                     "type": "string",
@@ -25,27 +40,16 @@
                     "description": "Export field description",
                     "default": "private"
                 },
-                "exportString": {
-                    "description": "Export field description",
-                    "default": {"length": 10},
-                    "anyOf": [
-                        {
-                            "$ref": "#/definitions/MyExportString"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
-                },
                 "numberArray": {
-                    "$ref": "#/definitions/MyNonEmptyArray<number>",
+                    "$ref": "#/definitions/main.MyNonEmptyArray<number>",
                     "title": "Non empty array"
                 },
                 "number": {
                     "type": [
                         "number",
                         "null"
-                    ]
+                    ],
+                    "nullable": ""
                 }
             },
             "required": [
@@ -57,14 +61,14 @@
                 "number"
             ],
             "additionalProperties": false,
-            "description": "Some description here",
-            "title": "Some title here"
+            "title": "Some title here",
+            "description": "Some description here"
         },
-        "MyExportString": {
+        "main.MyExportString": {
             "type": "string",
             "title": "My export string"
         },
-        "MyNonEmptyArray<number>": {
+        "main.MyNonEmptyArray<number>": {
             "type": "array",
             "items": {
                 "type": "number"
@@ -72,5 +76,5 @@
             "minItems": 1
         }
     },
-    "$ref": "#/definitions/MyObject"
+    "$ref": "#/definitions/main.MyObject"
 }

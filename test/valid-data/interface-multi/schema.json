@@ -1,14 +1,14 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
-        "MyObject": {
+        "main.MyObject": {
             "type": "object",
             "properties": {
                 "subA": {
-                    "$ref": "#/definitions/MySubObject"
+                    "$ref": "#/definitions/main.MySubObject"
                 },
                 "subB": {
-                    "$ref": "#/definitions/MySubObject"
+                    "$ref": "#/definitions/main.MySubObject"
                 }
             },
             "required": [
@@ -17,7 +17,7 @@
             ],
             "additionalProperties": false
         },
-        "MySubObject": {
+        "main.MySubObject": {
             "type": "object",
             "properties": {
                 "propA": {
@@ -34,5 +34,5 @@
             "additionalProperties": false
         }
     },
-    "$ref": "#/definitions/MyObject"
+    "$ref": "#/definitions/main.MyObject"
 }

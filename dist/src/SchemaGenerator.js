@@ -4,11 +4,16 @@ const ts = require("typescript");
 const NoRootTypeError_1 = require("./Error/NoRootTypeError");
 const NodeParser_1 = require("./NodeParser");
 const DefinitionType_1 = require("./Type/DefinitionType");
+const fullName_1 = require("./Utils/fullName");
 class SchemaGenerator {
     constructor(program, nodeParser, typeFormatter) {
         this.program = program;
         this.nodeParser = nodeParser;
         this.typeFormatter = typeFormatter;
+        const rootDir = this.program.getCompilerOptions().rootDir;
+        if (!rootDir) {
+            console.warn(`WARN: 'rootDir' compiler option is not specified. Will use cwd: '${process.cwd()}'`);
+        }
     }
     createSchema(fullName) {
         const rootNode = this.findRootNode(fullName);
@@ -21,10 +26,29 @@ class SchemaGenerator {
         this.program.getSourceFiles().forEach((sourceFile) => {
             this.inspectNode(sourceFile, typeChecker, allTypes);
         });
-        if (!allTypes.has(fullName)) {
-            throw new NoRootTypeError_1.NoRootTypeError(fullName);
+        if (allTypes.has(fullName)) {
+            return allTypes.get(fullName);
         }
-        return allTypes.get(fullName);
+        const re = new RegExp(`.*${fullName}`);
+        const matches = [];
+        for (const k of allTypes.keys()) {
+            if (k.match(re)) {
+                matches.push(k);
+            }
+        }
+        switch (matches.length) {
+            case 1:
+                const node = allTypes.get(matches[0]);
+                return node;
+            case 0:
+                console.warn(`No types matching ${fullName} found.`);
+                allTypes.forEach((val, key) => console.warn(key));
+                throw new NoRootTypeError_1.NoRootTypeError(fullName);
+            default:
+                console.warn(`Multiple types match '${fullName}'. Please pick one:`);
+                matches.map((k) => console.warn(` ${k}`));
+                throw new NoRootTypeError_1.NoRootTypeError(fullName);
+        }
     }
     inspectNode(node, typeChecker, allTypes) {
         if (node.kind === ts.SyntaxKind.InterfaceDeclaration ||
@@ -36,7 +60,7 @@ class SchemaGenerator {
             else if (this.isGenericType(node)) {
                 return;
             }
-            allTypes.set(this.getFullName(node, typeChecker), node);
+            allTypes.set(fullName_1.getFullName(node, this.program), node);
         }
         else {
             ts.forEachChild(node, (subnode) => this.inspectNode(subnode, typeChecker, allTypes));
@@ -49,10 +73,6 @@ class SchemaGenerator {
     isGenericType(node) {
         return !!(node.typeParameters &&
             node.typeParameters.length > 0);
-    }
-    getFullName(node, typeChecker) {
-        const symbol = node.symbol;
-        return typeChecker.getFullyQualifiedName(symbol).replace(/".*"\./, "");
     }
     getRootTypeDefinition(rootType) {
         return this.typeFormatter.getDefinition(rootType);

@@ -1,11 +1,11 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
-        "MyObject": {
+        "main.MyObject": {
             "type": "object",
             "properties": {
                 "value": {
-                    "$ref": "#/definitions/MyGeneric<string,number>"
+                    "$ref": "#/definitions/main.MyGeneric<string,number>"
                 }
             },
             "required": [
@@ -13,11 +13,11 @@
             ],
             "additionalProperties": false
         },
-        "MyGeneric<string,number>": {
+        "main.MyGeneric<string,number>": {
             "type": "object",
             "properties": {
                 "field": {
-                    "$ref": "#/definitions/MyGeneric<number,string>"
+                    "$ref": "#/definitions/main.MyGeneric<number,string>"
                 }
             },
             "required": [
@@ -25,11 +25,11 @@
             ],
             "additionalProperties": false
         },
-        "MyGeneric<number,string>": {
+        "main.MyGeneric<number,string>": {
             "type": "object",
             "properties": {
                 "field": {
-                    "$ref": "#/definitions/MyGeneric<string,number>"
+                    "$ref": "#/definitions/main.MyGeneric<string,number>"
                 }
             },
             "required": [
@@ -38,5 +38,5 @@
             "additionalProperties": false
         }
     },
-    "$ref": "#/definitions/MyObject"
+    "$ref": "#/definitions/main.MyObject"
 }

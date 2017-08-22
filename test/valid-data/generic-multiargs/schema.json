@@ -1,14 +1,14 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
-        "MyObject": {
+        "main.MyObject": {
             "type": "object",
             "properties": {
                 "value1": {
-                    "$ref": "#/definitions/MyGeneric<string,number>"
+                    "$ref": "#/definitions/main.MyGeneric<string,number>"
                 },
                 "value2": {
-                    "$ref": "#/definitions/MyGeneric<number,string>"
+                    "$ref": "#/definitions/main.MyGeneric<number,string>"
                 }
             },
             "required": [
@@ -17,7 +17,7 @@
             ],
             "additionalProperties": false
         },
-        "MyGeneric<string,number>": {
+        "main.MyGeneric<string,number>": {
             "type": "object",
             "properties": {
                 "a": {
@@ -33,7 +33,7 @@
             ],
             "additionalProperties": false
         },
-        "MyGeneric<number,string>": {
+        "main.MyGeneric<number,string>": {
             "type": "object",
             "properties": {
                 "a": {
@@ -50,5 +50,5 @@
             "additionalProperties": false
         }
     },
-    "$ref": "#/definitions/MyObject"
+    "$ref": "#/definitions/main.MyObject"
 }

@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
-        "MyObject": {
+        "main.MyObject": {
             "type": "object",
             "properties": {
                 "stringValue": {
@@ -10,14 +10,14 @@
                 "numberValue": {
                     "type": "number"
                 },
+                "exportString": {
+                    "$ref": "#/definitions/main.MyExportString"
+                },
                 "privateString": {
                     "type": "string"
                 },
-                "exportString": {
-                    "$ref": "#/definitions/MyExportString"
-                },
                 "numberArray": {
-                    "$ref": "#/definitions/MyNonEmptyArray<number>"
+                    "$ref": "#/definitions/main.MyNonEmptyArray<number>"
                 },
                 "number": {
                     "type": "number"
@@ -33,15 +33,15 @@
             ],
             "additionalProperties": false
         },
-        "MyExportString": {
+        "main.MyExportString": {
             "type": "string"
         },
-        "MyNonEmptyArray<number>": {
+        "main.MyNonEmptyArray<number>": {
             "type": "array",
             "items": {
                 "type": "number"
             }
         }
     },
-    "$ref": "#/definitions/MyObject"
+    "$ref": "#/definitions/main.MyObject"
 }

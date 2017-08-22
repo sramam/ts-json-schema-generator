@@ -20,7 +20,8 @@
         "pretty": true,
         "watch": false,
         "typeRoots": ["node_modules/@types"],
-        "outDir": "dist"
+        "outDir": "dist",
+        "rootDir": "."
     },
     "include": [
         "index.ts",

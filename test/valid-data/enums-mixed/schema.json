@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
-        "Enum": {
+        "main.Enum": {
             "type": [
                 "number",
                 "boolean",
@@ -17,5 +17,5 @@
             ]
         }
     },
-    "$ref": "#/definitions/Enum"
+    "$ref": "#/definitions/main.Enum"
 }

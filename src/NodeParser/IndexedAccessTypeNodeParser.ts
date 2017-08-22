@@ -16,12 +16,14 @@ export class IndexedAccessTypeNodeParser implements SubNodeParser {
     }
     public createType(node: ts.IndexedAccessTypeNode, context: Context): BaseType {
         const symbol: ts.Symbol = this.typeChecker.getSymbolAtLocation((<ts.TypeQueryNode>node.objectType).exprName)!;
-
+        // Object.keys(node).map((p: string) => {
+        //     console.log(`${p}: ${node[p]}`);
+        // });
         return new EnumType(
             `indexed-type-${node.getFullStart()}`,
             symbol ?
-            (<any>symbol.valueDeclaration).type.elementTypes.map((memberType: ts.Node) =>
-                this.childNodeParser.createType(memberType, context)) : [],
+                (<any>symbol.valueDeclaration).type.elementTypes.map((memberType: ts.Node) =>
+                    this.childNodeParser.createType(memberType, context)) : undefined,
         );
     }
 }

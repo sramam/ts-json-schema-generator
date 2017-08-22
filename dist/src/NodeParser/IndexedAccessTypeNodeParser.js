@@ -13,7 +13,7 @@ class IndexedAccessTypeNodeParser {
     createType(node, context) {
         const symbol = this.typeChecker.getSymbolAtLocation(node.objectType.exprName);
         return new EnumType_1.EnumType(`indexed-type-${node.getFullStart()}`, symbol ?
-            symbol.valueDeclaration.type.elementTypes.map((memberType) => this.childNodeParser.createType(memberType, context)) : []);
+            symbol.valueDeclaration.type.elementTypes.map((memberType) => this.childNodeParser.createType(memberType, context)) : undefined);
     }
 }
 exports.IndexedAccessTypeNodeParser = IndexedAccessTypeNodeParser;

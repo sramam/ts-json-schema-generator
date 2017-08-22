@@ -12,7 +12,6 @@ export declare class SchemaGenerator {
     private inspectNode(node, typeChecker, allTypes);
     private isExportType(node);
     private isGenericType(node);
-    private getFullName(node, typeChecker);
     private getRootTypeDefinition(rootType);
     private getRootChildDefinitions(rootType);
 }

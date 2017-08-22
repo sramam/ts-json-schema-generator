@@ -1,11 +1,11 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
-        "MyObject": {
+        "main.MyObject": {
             "type": "object",
             "properties": {
                 "export": {
-                    "$ref": "#/definitions/MyExportString"
+                    "$ref": "#/definitions/main.MyExportString"
                 },
                 "private": {
                     "type": "string"
@@ -17,9 +17,9 @@
             ],
             "additionalProperties": false
         },
-        "MyExportString": {
+        "main.MyExportString": {
             "type": "string"
         }
     },
-    "$ref": "#/definitions/MyObject"
+    "$ref": "#/definitions/main.MyObject"
 }

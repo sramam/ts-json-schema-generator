@@ -37,7 +37,7 @@ function createParser(program, config) {
     const typeChecker = program.getTypeChecker();
     const chainNodeParser = new ChainNodeParser_1.ChainNodeParser(typeChecker, []);
     function withExpose(nodeParser) {
-        return new ExposeNodeParser_1.ExposeNodeParser(typeChecker, nodeParser, config.expose);
+        return new ExposeNodeParser_1.ExposeNodeParser(program, nodeParser, config.expose);
     }
     function withTopRef(nodeParser) {
         return new TopRefNodeParser_1.TopRefNodeParser(chainNodeParser, config.type, config.topRef);

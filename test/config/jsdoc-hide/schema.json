@@ -1,29 +1,29 @@
 {
-  "$ref": "#/definitions/MyObject",
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "definitions": {
-    "Enum": {
-      "enum": [
-        "y"
-      ],
-      "type": "string"
-    },
-    "MyObject": {
-      "additionalProperties": false,
-      "properties": {
-        "bar": {
-          "$ref": "#/definitions/Enum"
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "definitions": {
+        "main.MyObject": {
+            "type": "object",
+            "properties": {
+                "foo": {
+                    "type": "number",
+                    "description": "This property should appear."
+                },
+                "bar": {
+                    "$ref": "#/definitions/main.Enum"
+                }
+            },
+            "required": [
+                "foo",
+                "bar"
+            ],
+            "additionalProperties": false
         },
-        "foo": {
-          "description": "This property should appear.",
-          "type": "number"
+        "main.Enum": {
+            "type": "string",
+            "enum": [
+                "y"
+            ]
         }
-      },
-      "required": [
-        "foo",
-        "bar"
-      ],
-      "type": "object"
-    }
-  }
+    },
+    "$ref": "#/definitions/main.MyObject"
 }

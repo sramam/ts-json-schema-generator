@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
-        "MyUnion": {
+        "main.MyUnion": {
             "type": "array",
             "items": {
                 "anyOf": [
@@ -9,12 +9,12 @@
                         "type": "string"
                     },
                     {
-                        "$ref": "#/definitions/MyObject"
+                        "$ref": "#/definitions/main.MyObject"
                     }
                 ]
             }
         },
-        "MyObject": {
+        "main.MyObject": {
             "type": "object",
             "properties": {
                 "array": {
@@ -33,5 +33,5 @@
             "additionalProperties": false
         }
     },
-    "$ref": "#/definitions/MyUnion"
+    "$ref": "#/definitions/main.MyUnion"
 }

@@ -1,14 +1,14 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
-        "MyObject": {
+        "main.MyObject": {
             "type": "object",
             "properties": {
                 "exportInterface": {
-                    "$ref": "#/definitions/ExportInterface"
+                    "$ref": "#/definitions/main.ExportInterface"
                 },
                 "exportAlias": {
-                    "$ref": "#/definitions/ExportAlias"
+                    "$ref": "#/definitions/main.ExportAlias"
                 },
                 "privateInterface": {
                     "type": "object",
@@ -38,7 +38,7 @@
                     "type": "object",
                     "properties": {
                         "mixedValue": {
-                            "$ref": "#/definitions/ExportAlias"
+                            "$ref": "#/definitions/main.ExportAlias"
                         }
                     },
                     "required": [
@@ -47,7 +47,7 @@
                     "additionalProperties": false
                 },
                 "mixedAlias": {
-                    "$ref": "#/definitions/MixedAlias"
+                    "$ref": "#/definitions/main.MixedAlias"
                 }
             },
             "required": [
@@ -60,7 +60,7 @@
             ],
             "additionalProperties": false
         },
-        "ExportInterface": {
+        "main.ExportInterface": {
             "type": "object",
             "properties": {
                 "exportValue": {
@@ -72,10 +72,10 @@
             ],
             "additionalProperties": false
         },
-        "ExportAlias": {
-            "$ref": "#/definitions/ExportInterface"
+        "main.ExportAlias": {
+            "$ref": "#/definitions/main.ExportInterface"
         },
-        "MixedAlias": {
+        "main.MixedAlias": {
             "type": "object",
             "properties": {
                 "privateValue": {
@@ -88,5 +88,5 @@
             "additionalProperties": false
         }
     },
-    "$ref": "#/definitions/MyObject"
+    "$ref": "#/definitions/main.MyObject"
 }

@@ -1,20 +1,20 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
-        "MyObject": {
+        "main.MyObject": {
             "type": "object",
             "properties": {
-                "someGeneric": {
-                    "$ref": "#/definitions/SomeGeneric<1,2>"
-                },
-                "someAlias": {
-                    "$ref": "#/definitions/SomeAlias<\"alias\">"
-                },
-                "c": {
-                    "$ref": "#/definitions/GenericC<GenericC<GenericA<string>>>"
-                },
                 "b": {
                     "type": "number"
+                },
+                "c": {
+                    "$ref": "#/definitions/main.GenericC<main.GenericC<main.GenericA<string>>>"
+                },
+                "someGeneric": {
+                    "$ref": "#/definitions/main.SomeGeneric<1,2>"
+                },
+                "someAlias": {
+                    "$ref": "#/definitions/main.SomeAlias<\"alias\">"
                 }
             },
             "required": [
@@ -25,11 +25,11 @@
             ],
             "additionalProperties": false
         },
-        "GenericC<GenericC<GenericC<GenericA<string>>>>": {
+        "main.GenericC<main.GenericC<main.GenericC<main.GenericA<string>>>>": {
             "type": "object",
             "properties": {
                 "c": {
-                    "$ref": "#/definitions/GenericC<GenericC<GenericA<string>>>"
+                    "$ref": "#/definitions/main.GenericC<main.GenericC<main.GenericA<string>>>"
                 }
             },
             "required": [
@@ -37,11 +37,11 @@
             ],
             "additionalProperties": false
         },
-        "GenericC<GenericC<GenericA<string>>>": {
+        "main.GenericC<main.GenericC<main.GenericA<string>>>": {
             "type": "object",
             "properties": {
                 "c": {
-                    "$ref": "#/definitions/GenericC<GenericA<string>>"
+                    "$ref": "#/definitions/main.GenericC<main.GenericA<string>>"
                 }
             },
             "required": [
@@ -49,11 +49,11 @@
             ],
             "additionalProperties": false
         },
-        "GenericC<GenericA<string>>": {
+        "main.GenericC<main.GenericA<string>>": {
             "type": "object",
             "properties": {
                 "c": {
-                    "$ref": "#/definitions/GenericA<string>"
+                    "$ref": "#/definitions/main.GenericA<string>"
                 }
             },
             "required": [
@@ -61,7 +61,7 @@
             ],
             "additionalProperties": false
         },
-        "GenericA<string>": {
+        "main.GenericA<string>": {
             "type": "object",
             "properties": {
                 "a": {
@@ -73,7 +73,7 @@
             ],
             "additionalProperties": false
         },
-        "B": {
+        "main.B": {
             "type": "object",
             "properties": {
                 "b": {
@@ -85,7 +85,7 @@
             ],
             "additionalProperties": false
         },
-        "SomeGeneric<1,2>": {
+        "main.SomeGeneric<1,2>": {
             "type": "object",
             "properties": {
                 "a": {
@@ -101,10 +101,10 @@
                     ]
                 },
                 "c": {
-                    "$ref": "#/definitions/GenericA<1>"
+                    "$ref": "#/definitions/main.GenericA<1>"
                 },
                 "d": {
-                    "$ref": "#/definitions/GenericC<2>"
+                    "$ref": "#/definitions/main.GenericC<2>"
                 }
             },
             "required": [
@@ -115,7 +115,7 @@
             ],
             "additionalProperties": false
         },
-        "GenericA<1>": {
+        "main.GenericA<1>": {
             "type": "object",
             "properties": {
                 "a": {
@@ -130,7 +130,7 @@
             ],
             "additionalProperties": false
         },
-        "GenericC<2>": {
+        "main.GenericC<2>": {
             "type": "object",
             "properties": {
                 "c": {
@@ -145,10 +145,10 @@
             ],
             "additionalProperties": false
         },
-        "SomeAlias<\"alias\">": {
-            "$ref": "#/definitions/SomeGeneric<\"alias\",\"alias\">"
+        "main.SomeAlias<\"alias\">": {
+            "$ref": "#/definitions/main.SomeGeneric<\"alias\",\"alias\">"
         },
-        "SomeGeneric<\"alias\",\"alias\">": {
+        "main.SomeGeneric<\"alias\",\"alias\">": {
             "type": "object",
             "properties": {
                 "a": {
@@ -164,10 +164,10 @@
                     ]
                 },
                 "c": {
-                    "$ref": "#/definitions/GenericA<\"alias\">"
+                    "$ref": "#/definitions/main.GenericA<\"alias\">"
                 },
                 "d": {
-                    "$ref": "#/definitions/GenericC<\"alias\">"
+                    "$ref": "#/definitions/main.GenericC<\"alias\">"
                 }
             },
             "required": [
@@ -178,7 +178,7 @@
             ],
             "additionalProperties": false
         },
-        "GenericA<\"alias\">": {
+        "main.GenericA<\"alias\">": {
             "type": "object",
             "properties": {
                 "a": {
@@ -193,7 +193,7 @@
             ],
             "additionalProperties": false
         },
-        "GenericC<\"alias\">": {
+        "main.GenericC<\"alias\">": {
             "type": "object",
             "properties": {
                 "c": {
@@ -209,5 +209,5 @@
             "additionalProperties": false
         }
     },
-    "$ref": "#/definitions/MyObject"
+    "$ref": "#/definitions/main.MyObject"
 }

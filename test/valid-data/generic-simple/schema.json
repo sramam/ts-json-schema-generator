@@ -1,11 +1,11 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
-        "MyObject": {
+        "main.MyObject": {
             "type": "object",
             "properties": {
                 "value": {
-                    "$ref": "#/definitions/MyGeneric<number>"
+                    "$ref": "#/definitions/main.MyGeneric<number>"
                 }
             },
             "required": [
@@ -13,7 +13,7 @@
             ],
             "additionalProperties": false
         },
-        "MyGeneric<number>": {
+        "main.MyGeneric<number>": {
             "type": "object",
             "properties": {
                 "field": {
@@ -26,5 +26,5 @@
             "additionalProperties": false
         }
     },
-    "$ref": "#/definitions/MyObject"
+    "$ref": "#/definitions/main.MyObject"
 }

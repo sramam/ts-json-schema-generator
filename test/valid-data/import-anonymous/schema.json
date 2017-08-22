@@ -1,11 +1,11 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
-        "MyObject": {
+        "main.MyObject": {
             "type": "object",
             "properties": {
                 "field": {
-                    "$ref": "#/definitions/MySubObject"
+                    "$ref": "#/definitions/module.MySubObject"
                 }
             },
             "required": [
@@ -13,7 +13,7 @@
             ],
             "additionalProperties": false
         },
-        "MySubObject": {
+        "module.MySubObject": {
             "type": "object",
             "properties": {
                 "value": {
@@ -35,5 +35,5 @@
             "additionalProperties": false
         }
     },
-    "$ref": "#/definitions/MyObject"
+    "$ref": "#/definitions/main.MyObject"
 }

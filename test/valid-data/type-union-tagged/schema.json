@@ -1,20 +1,20 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
-        "Shape": {
+        "main.Shape": {
             "anyOf": [
                 {
-                    "$ref": "#/definitions/Square"
+                    "$ref": "#/definitions/main.Square"
                 },
                 {
-                    "$ref": "#/definitions/Rectangle"
+                    "$ref": "#/definitions/main.Rectangle"
                 },
                 {
-                    "$ref": "#/definitions/Circle"
+                    "$ref": "#/definitions/main.Circle"
                 }
             ]
         },
-        "Square": {
+        "main.Square": {
             "type": "object",
             "properties": {
                 "kind": {
@@ -33,7 +33,7 @@
             ],
             "additionalProperties": false
         },
-        "Rectangle": {
+        "main.Rectangle": {
             "type": "object",
             "properties": {
                 "kind": {
@@ -56,7 +56,7 @@
             ],
             "additionalProperties": false
         },
-        "Circle": {
+        "main.Circle": {
             "type": "object",
             "properties": {
                 "kind": {
@@ -76,5 +76,5 @@
             "additionalProperties": false
         }
     },
-    "$ref": "#/definitions/Shape"
+    "$ref": "#/definitions/main.Shape"
 }

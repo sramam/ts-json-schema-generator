@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
-        "MyTuple": {
+        "main.MyTuple": {
             "type": "array",
             "items": [
                 {
@@ -11,6 +11,7 @@
                     "type": "number"
                 }
             ],
+            "minItems": 2,
             "additionalItems": {
                 "anyOf": [
                     {
@@ -20,9 +21,8 @@
                         "type": "number"
                     }
                 ]
-            },
-            "minItems": 2
+            }
         }
     },
-    "$ref": "#/definitions/MyTuple"
+    "$ref": "#/definitions/main.MyTuple"
 }

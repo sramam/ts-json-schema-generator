@@ -42,7 +42,7 @@
     "glob": "~7.1.2",
     "json-stable-stringify": "^1.0.1",
     "ts-node": "^3.3.0",
-    "typescript": "~2.4.2"
+    "typescript": "^2.4.2"
   },
   "devDependencies": {
     "@types/assertion-error": "^1.0.30",
@@ -54,13 +54,15 @@
     "@types/node": "^8.0.22",
     "ajv": "~5.2.2",
     "chai": "~4.1.0",
+    "git-mods": "^1.0.7",
+    "hook-std": "^0.4.0",
     "husky": "^0.14.3",
     "mocha": "^3.5.0",
     "source-map-support": "~0.4.15",
     "tslint": "^5.6.0"
   },
   "scripts": {
-    "precommit": "npm test && git-mods --staged-ok",
+    "precommit": "npm test && git-mods --staged_ok",
     "prepush": "npm test && git-mods",
     "prepublish": "npm run build",
     "preversion": "npm run lint && npm run test",

@@ -1,13 +1,13 @@
 {
-  "$ref": "#/definitions/MyType",
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "definitions": {
-    "MyType": {
-      "enum": [
-        "foo",
-        "bar"
-      ],
-      "type": "string"
-    }
-  }
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "definitions": {
+        "main.MyType": {
+            "type": "string",
+            "enum": [
+                "foo",
+                "bar"
+            ]
+        }
+    },
+    "$ref": "#/definitions/main.MyType"
 }

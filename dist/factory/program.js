@@ -21,7 +21,26 @@ function createProgramFromConfig(configFile) {
     delete parseResult.options.declaration;
     return ts.createProgram(parseResult.fileNames, parseResult.options);
 }
+function approxRootDir(fileGlob) {
+    const g = new glob.Glob(fileGlob);
+    const set = g.minimatch.set;
+    const rootDir = g.minimatch.set[0].reduce((_, el) => {
+        if (_.active) {
+            if (typeof el === "string") {
+                _.parts.push(el);
+            }
+            else {
+                _.active = false;
+                _.parts.push("noname.txt");
+            }
+        }
+        return _;
+    }, { parts: [], active: true });
+    rootDir.parts.pop();
+    return rootDir.parts.join(path.sep);
+}
 function createProgramFromGlob(fileGlob) {
+    const rootDir = approxRootDir(fileGlob);
     return ts.createProgram(glob.sync(path.resolve(fileGlob)), {
         noEmit: true,
         emitDecoratorMetadata: true,
@@ -29,6 +48,7 @@ function createProgramFromGlob(fileGlob) {
         target: ts.ScriptTarget.ES5,
         module: ts.ModuleKind.CommonJS,
         strictNullChecks: false,
+        rootDir: rootDir,
     });
 }
 function createProgram(config) {

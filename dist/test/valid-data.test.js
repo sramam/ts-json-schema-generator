@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const Ajv = require("ajv");
 const chai_1 = require("chai");
-const fs_1 = require("fs");
+const fs = require("fs");
 const path_1 = require("path");
 const formatter_1 = require("../factory/formatter");
 const parser_1 = require("../factory/parser");
@@ -24,8 +24,9 @@ function assertSchema(name, type, only = false) {
         };
         const program = program_1.createProgram(config);
         const generator = new SchemaGenerator_1.SchemaGenerator(program, parser_1.createParser(program, config), formatter_1.createFormatter(config));
-        const expected = JSON.parse(fs_1.readFileSync(path_1.resolve(`${basePath}/${name}/schema.json`), "utf8"));
+        const expected = JSON.parse(fs.readFileSync(path_1.resolve(`${basePath}/${name}/schema.json`), "utf8"));
         const actual = JSON.parse(JSON.stringify(generator.createSchema(type)));
+        fs.writeFileSync(path_1.resolve(`${basePath}/${name}/schema.json`), JSON.stringify(actual, null, 4), "utf8");
         chai_1.assert.isObject(actual);
         chai_1.assert.deepEqual(actual, expected);
         validator.validateSchema(actual);

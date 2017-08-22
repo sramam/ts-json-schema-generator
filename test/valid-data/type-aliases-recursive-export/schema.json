@@ -1,17 +1,14 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
-        "MyAlias": {
-            "$ref": "#/definitions/MyObject"
-        },
-        "MyObject": {
+        "main.MyObject": {
             "type": "object",
             "properties": {
                 "alias": {
-                    "$ref": "#/definitions/MyAlias"
+                    "$ref": "#/definitions/main.MyAlias"
                 },
                 "self": {
-                    "$ref": "#/definitions/MyObject"
+                    "$ref": "#/definitions/main.MyObject"
                 }
             },
             "required": [
@@ -19,7 +16,10 @@
                 "self"
             ],
             "additionalProperties": false
+        },
+        "main.MyAlias": {
+            "$ref": "#/definitions/main.MyObject"
         }
     },
-    "$ref": "#/definitions/MyObject"
+    "$ref": "#/definitions/main.MyObject"
 }

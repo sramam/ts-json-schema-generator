@@ -1,6 +1,6 @@
 import * as Ajv from "ajv";
 import { assert } from "chai";
-import { readFileSync } from "fs";
+import * as fs from "fs";
 import { resolve } from "path";
 import * as ts from "typescript";
 import { createFormatter } from "../factory/formatter";
@@ -16,9 +16,9 @@ validator.addMetaSchema(metaSchema, "http://json-schema.org/draft-04/schema#");
 const basePath = "test/valid-data";
 
 export type Run = (
-        expectation: string,
-        callback?: ((this: Mocha.ITestCallbackContext, done: MochaDone) => any) | undefined,
-    ) => Mocha.ITest;
+    expectation: string,
+    callback?: ((this: Mocha.ITestCallbackContext, done: MochaDone) => any) | undefined,
+) => Mocha.ITest;
 
 function assertSchema(name: string, type: string, only: boolean = false): void {
     const run: Run = only ? it.only : it;
@@ -39,8 +39,11 @@ function assertSchema(name: string, type: string, only: boolean = false): void {
             createFormatter(config),
         );
 
-        const expected: any = JSON.parse(readFileSync(resolve(`${basePath}/${name}/schema.json`), "utf8"));
+        const expected: any = JSON.parse(fs.readFileSync(resolve(`${basePath}/${name}/schema.json`), "utf8"));
         const actual: any = JSON.parse(JSON.stringify(generator.createSchema(type)));
+
+        // uncomment this line to update expected output automatically.
+        fs.writeFileSync(resolve(`${basePath}/${name}/schema.json`), JSON.stringify(actual, null, 4), "utf8");
 
         assert.isObject(actual);
         assert.deepEqual(actual, expected);

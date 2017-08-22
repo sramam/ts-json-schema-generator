@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
-        "TypeUnion": {
+        "main.TypeUnion": {
             "type": "object",
             "properties": {
                 "var1": {
@@ -32,7 +32,6 @@
                         ]
                     }
                 },
-
                 "var4": {
                     "type": [
                         "string",
@@ -80,7 +79,6 @@
                 "var1",
                 "var2",
                 "var3",
-
                 "var4",
                 "var5",
                 "var6"
@@ -88,5 +86,5 @@
             "additionalProperties": false
         }
     },
-    "$ref": "#/definitions/TypeUnion"
+    "$ref": "#/definitions/main.TypeUnion"
 }
