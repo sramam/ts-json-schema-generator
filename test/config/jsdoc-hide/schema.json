@@ -10,11 +10,15 @@
                 },
                 "bar": {
                     "$ref": "#/definitions/main.Enum"
+                },
+                "options": {
+                    "$ref": "#/definitions/main.Options"
                 }
             },
             "required": [
                 "foo",
-                "bar"
+                "bar",
+                "options"
             ],
             "additionalProperties": false
         },
@@ -22,6 +26,13 @@
             "type": "string",
             "enum": [
                 "y"
+            ]
+        },
+        "main.Options": {
+            "type": "string",
+            "enum": [
+                "up",
+                "down"
             ]
         }
     },

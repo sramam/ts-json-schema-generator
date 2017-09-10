@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const ts = require("typescript");
 const DefinitionType_1 = require("./Type/DefinitionType");
 const fullName_1 = require("./Utils/fullName");
 class ExposeNodeParser {
@@ -28,7 +27,7 @@ class ExposeNodeParser {
             return false;
         }
         const localSymbol = node.localSymbol;
-        return localSymbol ? (localSymbol.flags & ts.SymbolFlags.ExportType) !== 0 : false;
+        return localSymbol ? "exportSymbol" in localSymbol : false;
     }
     getDefinitionName(node, context) {
         const fullName = fullName_1.getFullName(node, this.program);

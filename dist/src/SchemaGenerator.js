@@ -68,7 +68,7 @@ class SchemaGenerator {
     }
     isExportType(node) {
         const localSymbol = node.localSymbol;
-        return localSymbol ? (localSymbol.flags & ts.SymbolFlags.Export) !== 0 : false;
+        return localSymbol ? "exportSymbol" in localSymbol : false;
     }
     isGenericType(node) {
         return !!(node.typeParameters &&
