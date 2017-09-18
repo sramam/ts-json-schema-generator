@@ -9,6 +9,7 @@ export class UnionNodeParser implements SubNodeParser {
     public constructor(
         private typeChecker: ts.TypeChecker,
         private childNodeParser: NodeParser,
+        private visibility: string | undefined,
     ) {
     }
 
@@ -16,7 +17,7 @@ export class UnionNodeParser implements SubNodeParser {
         return node.kind === ts.SyntaxKind.UnionType;
     }
     public createType(node: ts.UnionTypeNode, context: Context): BaseType {
-        const hidden = referenceHidden(this.typeChecker);
+        const hidden = referenceHidden(this.typeChecker, this.visibility);
         return new UnionType(
             node.types
             .filter((subnode: ts.Node) => !hidden(subnode))

@@ -3,20 +3,21 @@ import { Context } from "../NodeParser";
 import { SubNodeParser } from "../SubNodeParser";
 import { BaseType } from "../Type/BaseType";
 import { EnumType, EnumValue } from "../Type/EnumType";
-import { isHidden } from "../Utils/isHidden";
+import { inspectAllJsDocTags } from "../Utils/isHidden";
 
-function isMemberHidden(member: ts.EnumMember) {
+function isMemberHidden(member: ts.EnumMember, visibility: string) {
     if (!("symbol" in member)) {
         return false;
     }
 
     const symbol: ts.Symbol = (<any>member).symbol;
-    return isHidden(symbol);
+    return inspectAllJsDocTags(symbol, visibility);
 }
 
 export class EnumNodeParser implements SubNodeParser {
     public constructor(
         private typeChecker: ts.TypeChecker,
+        private visibility: string,
     ) {
     }
 
@@ -31,7 +32,7 @@ export class EnumNodeParser implements SubNodeParser {
         return new EnumType(
             `enum-${node.getFullStart()}`,
             members
-                .filter((member: ts.EnumMember) => !isMemberHidden(member))
+                .filter((member: ts.EnumMember) => !isMemberHidden(member, this.visibility))
                 .map((member: ts.EnumMember, index: number) => this.getMemberValue(member, index)),
         );
     }

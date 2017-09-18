@@ -30,6 +30,7 @@ function assertSchema(name: string, type: string, only: boolean = false): void {
             expose: "export",
             topRef: true,
             jsDoc: "none",
+            visibility: "hide",
         };
 
         const program: ts.Program = createProgram(config);

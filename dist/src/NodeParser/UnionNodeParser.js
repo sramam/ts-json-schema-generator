@@ -4,15 +4,16 @@ const ts = require("typescript");
 const UnionType_1 = require("../Type/UnionType");
 const isHidden_1 = require("../Utils/isHidden");
 class UnionNodeParser {
-    constructor(typeChecker, childNodeParser) {
+    constructor(typeChecker, childNodeParser, visibility) {
         this.typeChecker = typeChecker;
         this.childNodeParser = childNodeParser;
+        this.visibility = visibility;
     }
     supportsNode(node) {
         return node.kind === ts.SyntaxKind.UnionType;
     }
     createType(node, context) {
-        const hidden = isHidden_1.referenceHidden(this.typeChecker);
+        const hidden = isHidden_1.referenceHidden(this.typeChecker, this.visibility);
         return new UnionType_1.UnionType(node.types
             .filter((subnode) => !hidden(subnode))
             .map((subnode) => {

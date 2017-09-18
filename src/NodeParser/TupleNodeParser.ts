@@ -9,6 +9,7 @@ export class TupleNodeParser implements SubNodeParser {
     public constructor(
         private typeChecker: ts.TypeChecker,
         private childNodeParser: NodeParser,
+        private visibility: string | undefined,
     ) {
     }
 
@@ -16,7 +17,7 @@ export class TupleNodeParser implements SubNodeParser {
         return node.kind === ts.SyntaxKind.TupleType;
     }
     public createType(node: ts.TupleTypeNode, context: Context): BaseType {
-        const hidden = referenceHidden(this.typeChecker);
+        const hidden = referenceHidden(this.typeChecker, this.visibility);
         return new TupleType(
             node.elementTypes
                 .filter((subnode: ts.Node) => !hidden(subnode))

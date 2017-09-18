@@ -19,6 +19,7 @@ function assertSchema(name: string, type: string): void {
             expose: "export",
             topRef: true,
             jsDoc: "none",
+            visibility: "hide",
         };
 
         const unhook = hookStd.stderr((out: string) => "");

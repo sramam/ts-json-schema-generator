@@ -33,6 +33,11 @@ const args: any = commander
         (v: any) => v === "true" || v === "yes" || v === "1",
         true,
     )
+    .option(
+        "-z, --visibility <tag>",
+        "hides on `@hide` or `@visibility != <tag>`",
+        "hide",
+    )
     .parse(process.argv);
 
 const config: Config = {

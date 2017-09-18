@@ -3,16 +3,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const ts = require("typescript");
 const EnumType_1 = require("../Type/EnumType");
 const isHidden_1 = require("../Utils/isHidden");
-function isMemberHidden(member) {
+function isMemberHidden(member, visibility) {
     if (!("symbol" in member)) {
         return false;
     }
     const symbol = member.symbol;
-    return isHidden_1.isHidden(symbol);
+    return isHidden_1.inspectAllJsDocTags(symbol, visibility);
 }
 class EnumNodeParser {
-    constructor(typeChecker) {
+    constructor(typeChecker, visibility) {
         this.typeChecker = typeChecker;
+        this.visibility = visibility;
     }
     supportsNode(node) {
         return node.kind === ts.SyntaxKind.EnumDeclaration || node.kind === ts.SyntaxKind.EnumMember;
@@ -22,7 +23,7 @@ class EnumNodeParser {
             node.members :
             [node];
         return new EnumType_1.EnumType(`enum-${node.getFullStart()}`, members
-            .filter((member) => !isMemberHidden(member))
+            .filter((member) => !isMemberHidden(member, this.visibility))
             .map((member, index) => this.getMemberValue(member, index)));
     }
     getMemberValue(member, index) {

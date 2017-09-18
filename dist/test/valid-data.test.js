@@ -21,6 +21,7 @@ function assertSchema(name, type, only = false) {
             expose: "export",
             topRef: true,
             jsDoc: "none",
+            visibility: "hide",
         };
         const program = program_1.createProgram(config);
         const generator = new SchemaGenerator_1.SchemaGenerator(program, parser_1.createParser(program, config), formatter_1.createFormatter(config));

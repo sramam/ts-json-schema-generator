@@ -9,6 +9,7 @@ export class IntersectionNodeParser implements SubNodeParser {
     public constructor(
         private typeChecker: ts.TypeChecker,
         private childNodeParser: NodeParser,
+        private visibility?: string,
     ) {
     }
 
@@ -16,7 +17,7 @@ export class IntersectionNodeParser implements SubNodeParser {
         return node.kind === ts.SyntaxKind.IntersectionType;
     }
     public createType(node: ts.IntersectionTypeNode, context: Context): BaseType {
-        const hidden = referenceHidden(this.typeChecker);
+        const hidden = referenceHidden(this.typeChecker, this.visibility);
         return new IntersectionType(
             node.types
                 .filter((subnode: ts.Node) => !hidden(subnode))

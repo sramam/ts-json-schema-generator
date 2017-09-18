@@ -13,6 +13,7 @@ const args = commander
     .option("-r, --topRef", "Create a top-level $ref definition", (v) => v === "true" || v === "yes" || v === "1", true)
     .option("-j, --jsDoc <extended>", "Read JsDoc annotations", /^(extended|none|basic)$/, "extended")
     .option("-s, --sortProps", "Sort properties for stable output", (v) => v === "true" || v === "yes" || v === "1", true)
+    .option("-z, --visibility <tag>", "hides on `@hide` or `@visibility != <tag>`", "hide")
     .parse(process.argv);
 const config = Object.assign({}, Config_1.DEFAULT_CONFIG, args);
 try {

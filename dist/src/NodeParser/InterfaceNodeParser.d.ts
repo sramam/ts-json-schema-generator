@@ -5,7 +5,8 @@ import { BaseType } from "../Type/BaseType";
 export declare class InterfaceNodeParser implements SubNodeParser {
     private typeChecker;
     private childNodeParser;
-    constructor(typeChecker: ts.TypeChecker, childNodeParser: NodeParser);
+    private visibility;
+    constructor(typeChecker: ts.TypeChecker, childNodeParser: NodeParser, visibility: string);
     supportsNode(node: ts.InterfaceDeclaration): boolean;
     createType(node: ts.InterfaceDeclaration, context: Context): BaseType;
     private getBaseTypes(node, context);

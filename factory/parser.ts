@@ -84,18 +84,18 @@ export function createParser(program: ts.Program, config: Config): NodeParser {
         .addNodeParser(new MappedTypeNodeParser(typeChecker, chainNodeParser))
         .addNodeParser(new TypeOperatorNodeParser(typeChecker, chainNodeParser))
 
-        .addNodeParser(new UnionNodeParser(typeChecker, chainNodeParser))
-        .addNodeParser(new IntersectionNodeParser(typeChecker, chainNodeParser))
-        .addNodeParser(new TupleNodeParser(typeChecker, chainNodeParser))
+        .addNodeParser(new UnionNodeParser(typeChecker, chainNodeParser, config.visibility))
+        .addNodeParser(new IntersectionNodeParser(typeChecker, chainNodeParser, config.visibility))
+        .addNodeParser(new TupleNodeParser(typeChecker, chainNodeParser, config.visibility))
 
         .addNodeParser(withCircular(withExpose(withJsDoc(
             new TypeAliasNodeParser(typeChecker, chainNodeParser)))))
-        .addNodeParser(withExpose(withJsDoc(new EnumNodeParser(typeChecker))))
+        .addNodeParser(withExpose(withJsDoc(new EnumNodeParser(typeChecker, config.visibility))))
         .addNodeParser(withCircular(withExpose(withJsDoc(
-            new InterfaceNodeParser(typeChecker, withJsDoc(chainNodeParser)),
+            new InterfaceNodeParser(typeChecker, withJsDoc(chainNodeParser), config.visibility),
         ))))
         .addNodeParser(withCircular(withExpose(withJsDoc(
-            new TypeLiteralNodeParser(withJsDoc(chainNodeParser)),
+            new TypeLiteralNodeParser(withJsDoc(chainNodeParser), config.visibility),
         ))))
 
         .addNodeParser(new ArrayNodeParser(chainNodeParser));

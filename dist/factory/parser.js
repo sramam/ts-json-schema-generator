@@ -75,13 +75,13 @@ function createParser(program, config) {
         .addNodeParser(new TypeofNodeParser_1.TypeofNodeParser(typeChecker, chainNodeParser))
         .addNodeParser(new MappedTypeNodeParser_1.MappedTypeNodeParser(typeChecker, chainNodeParser))
         .addNodeParser(new TypeOperatorNodeParser_1.TypeOperatorNodeParser(typeChecker, chainNodeParser))
-        .addNodeParser(new UnionNodeParser_1.UnionNodeParser(typeChecker, chainNodeParser))
-        .addNodeParser(new IntersectionNodeParser_1.IntersectionNodeParser(typeChecker, chainNodeParser))
-        .addNodeParser(new TupleNodeParser_1.TupleNodeParser(typeChecker, chainNodeParser))
+        .addNodeParser(new UnionNodeParser_1.UnionNodeParser(typeChecker, chainNodeParser, config.visibility))
+        .addNodeParser(new IntersectionNodeParser_1.IntersectionNodeParser(typeChecker, chainNodeParser, config.visibility))
+        .addNodeParser(new TupleNodeParser_1.TupleNodeParser(typeChecker, chainNodeParser, config.visibility))
         .addNodeParser(withCircular(withExpose(withJsDoc(new TypeAliasNodeParser_1.TypeAliasNodeParser(typeChecker, chainNodeParser)))))
-        .addNodeParser(withExpose(withJsDoc(new EnumNodeParser_1.EnumNodeParser(typeChecker))))
-        .addNodeParser(withCircular(withExpose(withJsDoc(new InterfaceNodeParser_1.InterfaceNodeParser(typeChecker, withJsDoc(chainNodeParser))))))
-        .addNodeParser(withCircular(withExpose(withJsDoc(new TypeLiteralNodeParser_1.TypeLiteralNodeParser(withJsDoc(chainNodeParser))))))
+        .addNodeParser(withExpose(withJsDoc(new EnumNodeParser_1.EnumNodeParser(typeChecker, config.visibility))))
+        .addNodeParser(withCircular(withExpose(withJsDoc(new InterfaceNodeParser_1.InterfaceNodeParser(typeChecker, withJsDoc(chainNodeParser), config.visibility)))))
+        .addNodeParser(withCircular(withExpose(withJsDoc(new TypeLiteralNodeParser_1.TypeLiteralNodeParser(withJsDoc(chainNodeParser), config.visibility)))))
         .addNodeParser(new ArrayNodeParser_1.ArrayNodeParser(chainNodeParser));
     return withTopRef(chainNodeParser);
 }

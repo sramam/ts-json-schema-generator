@@ -8,6 +8,11 @@
                     "type": "number",
                     "description": "This property should appear."
                 },
+                "visibleToStatus": {
+                    "type": "boolean",
+                    "description": "This property should appear",
+                    "visibility": "status"
+                },
                 "bar": {
                     "$ref": "#/definitions/main.Enum"
                 },
@@ -17,6 +22,7 @@
             },
             "required": [
                 "foo",
+                "visibleToStatus",
                 "bar",
                 "options"
             ],

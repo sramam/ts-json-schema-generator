@@ -16,6 +16,7 @@ function assertSchema(name, type) {
             expose: "export",
             topRef: true,
             jsDoc: "none",
+            visibility: "hide",
         };
         const unhook = hookStd.stderr((out) => "");
         const program = program_1.createProgram(config);

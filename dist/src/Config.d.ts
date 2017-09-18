@@ -3,6 +3,7 @@ export interface PartialConfig {
     topRef: boolean;
     jsDoc: "none" | "extended" | "basic";
     sortProps?: boolean;
+    visibility: string;
 }
 export interface Config extends PartialConfig {
     path: string;

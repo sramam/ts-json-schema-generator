@@ -29,17 +29,19 @@ function assertSchema(name, partialConfig, only = false) {
     });
 }
 describe("config", () => {
-    assertSchema("expose-all-topref-true", { type: "MyObject", expose: "all", topRef: true, jsDoc: "none" });
-    assertSchema("expose-all-topref-false", { type: "MyObject", expose: "all", topRef: false, jsDoc: "none" });
-    assertSchema("expose-none-topref-true", { type: "MyObject", expose: "none", topRef: true, jsDoc: "none" });
-    assertSchema("expose-none-topref-false", { type: "MyObject", expose: "none", topRef: false, jsDoc: "none" });
-    assertSchema("expose-export-topref-true", { type: "MyObject", expose: "export", topRef: true, jsDoc: "none" });
-    assertSchema("expose-export-topref-false", { type: "MyObject", expose: "export", topRef: false, jsDoc: "none" });
-    assertSchema("jsdoc-complex-none", { type: "MyObject", expose: "export", topRef: true, jsDoc: "none" });
-    assertSchema("jsdoc-complex-basic", { type: "MyObject", expose: "export", topRef: true, jsDoc: "basic" });
-    assertSchema("jsdoc-complex-extended", { type: "MyObject", expose: "export", topRef: true, jsDoc: "extended" });
-    assertSchema("jsdoc-description-only", { type: "MyObject", expose: "export", topRef: true, jsDoc: "extended" });
-    assertSchema("jsdoc-hide", { type: "MyObject", expose: "export", topRef: true, jsDoc: "extended" });
-    assertSchema("jsdoc-inheritance", { type: "MyObject", expose: "export", topRef: true, jsDoc: "extended" });
+    const visibility = "hide";
+    assertSchema("expose-all-topref-true", { type: "MyObject", expose: "all", topRef: true, jsDoc: "none", visibility });
+    assertSchema("expose-all-topref-false", { type: "MyObject", expose: "all", topRef: false, jsDoc: "none", visibility });
+    assertSchema("expose-none-topref-true", { type: "MyObject", expose: "none", topRef: true, jsDoc: "none", visibility });
+    assertSchema("expose-none-topref-false", { type: "MyObject", expose: "none", topRef: false, jsDoc: "none", visibility });
+    assertSchema("expose-export-topref-true", { type: "MyObject", expose: "export", topRef: true, jsDoc: "none", visibility });
+    assertSchema("expose-export-topref-false", { type: "MyObject", expose: "export", topRef: false, jsDoc: "none", visibility });
+    assertSchema("jsdoc-complex-none", { type: "MyObject", expose: "export", topRef: true, jsDoc: "none", visibility });
+    assertSchema("jsdoc-complex-basic", { type: "MyObject", expose: "export", topRef: true, jsDoc: "basic", visibility });
+    assertSchema("jsdoc-complex-extended", { type: "MyObject", expose: "export", topRef: true, jsDoc: "extended", visibility });
+    assertSchema("jsdoc-description-only", { type: "MyObject", expose: "export", topRef: true, jsDoc: "extended", visibility });
+    assertSchema("jsdoc-hide", { type: "MyObject", expose: "export", topRef: true, jsDoc: "extended", visibility });
+    assertSchema("jsdoc-inheritance", { type: "MyObject", expose: "export", topRef: true, jsDoc: "extended", visibility });
+    assertSchema("jsdoc-visible", { type: "MyObject", expose: "export", topRef: true, jsDoc: "extended", visibility: "status" }, true);
 });
 //# sourceMappingURL=config.test.js.map

@@ -1,29 +1,34 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const ts = require("typescript");
-function isHidden(symbol) {
+function inspectAllJsDocTags(symbol, visibility = "hide") {
     const jsDocTags = symbol.getJsDocTags();
     if (!jsDocTags || !jsDocTags.length) {
         return false;
     }
-    const jsDocTag = jsDocTags.find((tag) => tag.name === "hide");
-    return !!jsDocTag;
+    const checkHidden = (prev, tag) => {
+        const isHidden = (prev ||
+            tag.name === "hide" ||
+            (tag.name === "visibility" && tag.text !== visibility));
+        return isHidden;
+    };
+    return jsDocTags.reduce(checkHidden, false);
 }
-exports.isHidden = isHidden;
-function isNodeHidden(node) {
+exports.inspectAllJsDocTags = inspectAllJsDocTags;
+function isNodeHidden(node, visibility) {
     const symbol = node.symbol;
     if (!symbol) {
         return null;
     }
-    return isHidden(symbol);
+    return inspectAllJsDocTags(symbol, visibility);
 }
 exports.isNodeHidden = isNodeHidden;
-function referenceHidden(typeChecker) {
+function referenceHidden(typeChecker, visibility = "_hide_") {
     return function (node) {
         if (node.kind === ts.SyntaxKind.TypeReference) {
-            return isHidden(typeChecker.getSymbolAtLocation(node.typeName));
+            return inspectAllJsDocTags(typeChecker.getSymbolAtLocation(node.typeName), visibility);
         }
-        return isNodeHidden(node);
+        return isNodeHidden(node, visibility);
     };
 }
 exports.referenceHidden = referenceHidden;

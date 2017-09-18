@@ -3,11 +3,12 @@ import { Context, NodeParser } from "../NodeParser";
 import { SubNodeParser } from "../SubNodeParser";
 import { BaseType } from "../Type/BaseType";
 import { ObjectProperty, ObjectType } from "../Type/ObjectType";
-import { isHidden } from "../Utils/isHidden";
+import { inspectAllJsDocTags } from "../Utils/isHidden";
 
 export class TypeLiteralNodeParser implements SubNodeParser {
     public constructor(
         private childNodeParser: NodeParser,
+        private visibility: string,
     ) {
     }
 
@@ -28,7 +29,7 @@ export class TypeLiteralNodeParser implements SubNodeParser {
             .filter((property: ts.TypeElement) => property.kind === ts.SyntaxKind.PropertySignature)
             .reduce((result: ObjectProperty[], propertyNode: ts.PropertySignature) => {
                 const propertySymbol: ts.Symbol = (propertyNode as any).symbol;
-                if (isHidden(propertySymbol)) {
+                if (inspectAllJsDocTags(propertySymbol, this.visibility)) {
                     return result;
                 }
                 const objectProperty = new ObjectProperty(

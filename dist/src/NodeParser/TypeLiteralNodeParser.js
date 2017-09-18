@@ -4,8 +4,9 @@ const ts = require("typescript");
 const ObjectType_1 = require("../Type/ObjectType");
 const isHidden_1 = require("../Utils/isHidden");
 class TypeLiteralNodeParser {
-    constructor(childNodeParser) {
+    constructor(childNodeParser, visibility) {
         this.childNodeParser = childNodeParser;
+        this.visibility = visibility;
     }
     supportsNode(node) {
         return node.kind === ts.SyntaxKind.TypeLiteral;
@@ -18,7 +19,7 @@ class TypeLiteralNodeParser {
             .filter((property) => property.kind === ts.SyntaxKind.PropertySignature)
             .reduce((result, propertyNode) => {
             const propertySymbol = propertyNode.symbol;
-            if (isHidden_1.isHidden(propertySymbol)) {
+            if (isHidden_1.inspectAllJsDocTags(propertySymbol, this.visibility)) {
                 return result;
             }
             const objectProperty = new ObjectType_1.ObjectProperty(propertySymbol.getName(), this.childNodeParser.createType(propertyNode.type, context), !propertyNode.questionToken);
