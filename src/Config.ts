@@ -17,5 +17,5 @@ export const DEFAULT_CONFIG: PartialConfig = {
     topRef: true,
     jsDoc: "extended",
     sortProps: true,
-    visibility: "hide",
+    visibility: "",
 };

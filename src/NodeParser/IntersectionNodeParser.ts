@@ -9,7 +9,7 @@ export class IntersectionNodeParser implements SubNodeParser {
     public constructor(
         private typeChecker: ts.TypeChecker,
         private childNodeParser: NodeParser,
-        private visibility?: string,
+        private visibility: string,
     ) {
     }
 

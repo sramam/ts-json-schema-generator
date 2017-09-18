@@ -36,7 +36,7 @@ const args: any = commander
     .option(
         "-z, --visibility <tag>",
         "hides on `@hide` or `@visibility != <tag>`",
-        "hide",
+        "",
     )
     .parse(process.argv);
 

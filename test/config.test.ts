@@ -76,5 +76,5 @@ describe("config", () => {
     assertSchema("jsdoc-inheritance",
         { type: "MyObject", expose: "export", topRef: true, jsDoc: "extended", visibility });
     assertSchema("jsdoc-visible",
-        { type: "MyObject", expose: "export", topRef: true, jsDoc: "extended", visibility: "status" }, true);
+        { type: "MyObject", expose: "export", topRef: true, jsDoc: "extended", visibility: "status" });
 });

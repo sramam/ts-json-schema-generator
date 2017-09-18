@@ -6,7 +6,7 @@ export declare class TupleNodeParser implements SubNodeParser {
     private typeChecker;
     private childNodeParser;
     private visibility;
-    constructor(typeChecker: ts.TypeChecker, childNodeParser: NodeParser, visibility: string | undefined);
+    constructor(typeChecker: ts.TypeChecker, childNodeParser: NodeParser, visibility: string);
     supportsNode(node: ts.TupleTypeNode): boolean;
     createType(node: ts.TupleTypeNode, context: Context): BaseType;
 }

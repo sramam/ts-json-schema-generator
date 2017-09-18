@@ -13,6 +13,11 @@
                     "description": "This property should appear",
                     "visibility": "status"
                 },
+                "visibileOnMultiple": {
+                    "type": "number",
+                    "description": "This property should appear",
+                    "visibility": "some-other,status"
+                },
                 "bar": {
                     "$ref": "#/definitions/main.Enum"
                 },
@@ -23,6 +28,7 @@
             "required": [
                 "foo",
                 "visibleToStatus",
+                "visibileOnMultiple",
                 "bar",
                 "options"
             ],

@@ -37,6 +37,13 @@ export interface MyObject {
      */
     visibleToStatus: boolean;
 
+    /**
+     * This property should appear
+     *
+     * @visibility some-other,status
+     */
+    visibileOnMultiple: number;
+
     bar: Enum;
 
     options: Options;

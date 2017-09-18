@@ -6,7 +6,7 @@ export declare class UnionNodeParser implements SubNodeParser {
     private typeChecker;
     private childNodeParser;
     private visibility;
-    constructor(typeChecker: ts.TypeChecker, childNodeParser: NodeParser, visibility: string | undefined);
+    constructor(typeChecker: ts.TypeChecker, childNodeParser: NodeParser, visibility: string);
     supportsNode(node: ts.UnionTypeNode): boolean;
     createType(node: ts.UnionTypeNode, context: Context): BaseType;
 }
