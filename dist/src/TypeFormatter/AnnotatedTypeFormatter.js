@@ -4,7 +4,7 @@ const util_1 = require("util");
 const AnnotatedType_1 = require("../Type/AnnotatedType");
 function makeNullable(def) {
     const union = def.oneOf || def.anyOf;
-    if (union && union.filter((d) => d.type === null).length > 0) {
+    if (union && union.filter((d) => d.type === "null").length === 0) {
         union.push({ type: "null" });
     }
     else if (def.type && def.type !== "object") {
@@ -16,9 +16,19 @@ function makeNullable(def) {
         else if (def.type !== "null") {
             def.type = [def.type, "null"];
         }
+        if (def.enum && def.enum.indexOf(null) === -1) {
+            def.enum.push(null);
+        }
     }
     else {
         const subdef = {};
+        if ("anyOf" in def) {
+            for (const d of def.anyOf) {
+                if (d.type === "null") {
+                    return def;
+                }
+            }
+        }
         for (const k in def) {
             if (def.hasOwnProperty(k) && k !== "description" && k !== "title" && k !== "default") {
                 const key = k;
@@ -30,6 +40,7 @@ function makeNullable(def) {
     }
     return def;
 }
+exports.makeNullable = makeNullable;
 class AnnotatedTypeFormatter {
     constructor(childTypeFormatter) {
         this.childTypeFormatter = childTypeFormatter;

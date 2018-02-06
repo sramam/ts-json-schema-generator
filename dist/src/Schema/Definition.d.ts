@@ -13,7 +13,7 @@ export interface Definition {
     additionalItems?: {
         anyOf: Definition[];
     };
-    enum?: RawType[] | Definition[];
+    enum?: (RawType | Definition)[];
     default?: RawType | Object;
     additionalProperties?: false | Definition;
     required?: string[];

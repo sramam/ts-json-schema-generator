@@ -56,7 +56,6 @@ function assertSchema(name: string, type: string, only: boolean = false): void {
 
 describe("valid-data", () => {
     // TODO: generics recursive
-    // TODO: literals unions
 
     assertSchema("simple-object", "SimpleObject");
 
@@ -76,6 +75,10 @@ describe("valid-data", () => {
     assertSchema("enums-compute", "Enum");
     assertSchema("enums-mixed", "Enum");
     assertSchema("enums-member", "MyObject");
+
+    assertSchema("string-literals", "MyObject");
+    assertSchema("string-literals-inline", "MyObject");
+    assertSchema("string-literals-null", "MyObject");
 
     assertSchema("namespace-deep-1", "RootNamespace.Def");
     assertSchema("namespace-deep-2", "RootNamespace.SubNamespace.HelperA");
@@ -103,6 +106,7 @@ describe("valid-data", () => {
     assertSchema("type-intersection-additional-props", "MyObject");
 
     assertSchema("type-typeof", "MyType");
+    assertSchema("type-typeof-value", "MyType");
     assertSchema("type-indexed-access", "MyType");
     assertSchema("type-keyof", "MyType");
     assertSchema("type-mapped", "MyObject");
@@ -114,4 +118,6 @@ describe("valid-data", () => {
     assertSchema("generic-anonymous", "MyObject");
     assertSchema("generic-recursive", "MyObject");
     assertSchema("generic-hell", "MyObject");
+
+    assertSchema("nullable-null", "MyObject");
 });

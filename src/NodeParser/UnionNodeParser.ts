@@ -20,7 +20,7 @@ export class UnionNodeParser implements SubNodeParser {
         const hidden = referenceHidden(this.typeChecker, this.visibility);
         return new UnionType(
             node.types
-            .filter((subnode: ts.Node) => !hidden(subnode))
+                .filter((subnode: ts.Node) => !hidden(subnode))
                 .map((subnode: ts.Node) => {
                     return this.childNodeParser.createType(subnode, context);
                 }),

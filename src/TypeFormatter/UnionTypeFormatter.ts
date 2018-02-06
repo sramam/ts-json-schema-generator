@@ -3,6 +3,7 @@ import { SubTypeFormatter } from "../SubTypeFormatter";
 import { BaseType } from "../Type/BaseType";
 import { UnionType } from "../Type/UnionType";
 import { TypeFormatter } from "../TypeFormatter";
+import { uniqueArray } from "../Utils/uniqueArray";
 
 export class UnionTypeFormatter implements SubTypeFormatter {
     public constructor(
@@ -14,9 +15,29 @@ export class UnionTypeFormatter implements SubTypeFormatter {
         return type instanceof UnionType;
     }
     public getDefinition(type: UnionType): Definition {
-        return {
-            anyOf: type.getTypes().map((item: BaseType) => this.childTypeFormatter.getDefinition(item)),
-        };
+        const definitions = type.getTypes().map((item: BaseType) => this.childTypeFormatter.getDefinition(item));
+
+        // special case for string literals | string -> string
+        let stringType = true;
+        let oneNotEnum = false;
+        for (const def of definitions) {
+            if (def.type !== "string") {
+                stringType = false;
+                break;
+            }
+            if (def.enum === undefined) {
+                oneNotEnum = true;
+            }
+        }
+        if (stringType && oneNotEnum) {
+            return {
+                type: "string",
+            };
+        }
+
+        return definitions.length > 1 ? {
+            anyOf: definitions,
+        } : definitions[0];
     }
     public getChildren(type: UnionType): BaseType[] {
         return type.getTypes().reduce((result: BaseType[], item: BaseType) => [

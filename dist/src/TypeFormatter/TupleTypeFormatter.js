@@ -11,12 +11,7 @@ class TupleTypeFormatter {
     getDefinition(type) {
         const tupleDefinitions = type.getTypes()
             .map((item) => this.childTypeFormatter.getDefinition(item));
-        return {
-            type: "array",
-            items: tupleDefinitions,
-            minItems: tupleDefinitions.length,
-            additionalItems: { anyOf: tupleDefinitions },
-        };
+        return Object.assign({ type: "array", items: tupleDefinitions, minItems: tupleDefinitions.length }, (tupleDefinitions.length > 1 ? { additionalItems: { anyOf: tupleDefinitions } } : {}));
     }
     getChildren(type) {
         return type.getTypes().reduce((result, item) => [

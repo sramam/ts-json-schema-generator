@@ -50,6 +50,9 @@ describe("valid-data", () => {
     assertSchema("enums-compute", "Enum");
     assertSchema("enums-mixed", "Enum");
     assertSchema("enums-member", "MyObject");
+    assertSchema("string-literals", "MyObject");
+    assertSchema("string-literals-inline", "MyObject");
+    assertSchema("string-literals-null", "MyObject");
     assertSchema("namespace-deep-1", "RootNamespace.Def");
     assertSchema("namespace-deep-2", "RootNamespace.SubNamespace.HelperA");
     assertSchema("namespace-deep-3", "RootNamespace.SubNamespace.HelperB");
@@ -72,6 +75,7 @@ describe("valid-data", () => {
     assertSchema("type-intersection", "MyObject");
     assertSchema("type-intersection-additional-props", "MyObject");
     assertSchema("type-typeof", "MyType");
+    assertSchema("type-typeof-value", "MyType");
     assertSchema("type-indexed-access", "MyType");
     assertSchema("type-keyof", "MyType");
     assertSchema("type-mapped", "MyObject");
@@ -82,5 +86,6 @@ describe("valid-data", () => {
     assertSchema("generic-anonymous", "MyObject");
     assertSchema("generic-recursive", "MyObject");
     assertSchema("generic-hell", "MyObject");
+    assertSchema("nullable-null", "MyObject");
 });
 //# sourceMappingURL=valid-data.test.js.map

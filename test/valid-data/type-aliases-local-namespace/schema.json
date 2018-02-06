@@ -2,10 +2,8 @@
     "$schema": "http://json-schema.org/draft-04/schema#",
     "definitions": {
         "main.MyObject": {
-            "$ref": "#/definitions/D.D"
-        },
-        "D.D": {
             "type": "object",
+            "additionalProperties": false,
             "properties": {
                 "d": {
                     "$ref": "#/definitions/C.C"
@@ -13,11 +11,11 @@
             },
             "required": [
                 "d"
-            ],
-            "additionalProperties": false
+            ]
         },
         "C.C": {
             "type": "object",
+            "additionalProperties": false,
             "properties": {
                 "c": {
                     "$ref": "#/definitions/B.B"
@@ -25,8 +23,7 @@
             },
             "required": [
                 "c"
-            ],
-            "additionalProperties": false
+            ]
         },
         "B.B": {
             "type": "object",

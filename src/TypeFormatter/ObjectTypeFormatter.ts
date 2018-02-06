@@ -21,25 +21,17 @@ export class ObjectTypeFormatter implements SubTypeFormatter {
             return this.getObjectDefinition(type);
         }
 
-        if (
-            Object.keys(type.getProperties()).length === 0 &&
-            type.getAdditionalProperties() === false &&
-            type.getBaseTypes().length === 1
-        ) {
-            return this.childTypeFormatter.getDefinition(type.getBaseTypes()[0]);
-        }
-
         return type.getBaseTypes().reduce(
             getAllOfDefinitionReducer(this.childTypeFormatter), this.getObjectDefinition(type));
     }
     public getChildren(type: ObjectType): BaseType[] {
         const properties: ObjectProperty[] = type.getProperties();
-        const additionalProperties: BaseType|boolean = type.getAdditionalProperties();
+        const additionalProperties: BaseType | boolean = type.getAdditionalProperties();
 
         return [
             ...type.getBaseTypes().reduce((result: BaseType[], baseType: BaseType) => [
                 ...result,
-                ...this.childTypeFormatter.getChildren(baseType),
+                ...this.childTypeFormatter.getChildren(baseType).slice(1),
             ], []),
 
             ...additionalProperties instanceof BaseType ?

@@ -1,6 +1,6 @@
 {
   "name": "ts-json-schema-generator",
-  "version": "0.12.0",
+  "version": "0.18.0",
   "description": "Generate JSON schema from your Typescript sources",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -38,26 +38,25 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "commander": "~2.11.0",
+    "commander": "~2.12.2",
     "glob": "~7.1.2",
     "hook-std": "^0.4.0",
     "json-stable-stringify": "^1.0.1",
-    "ts-node": "^3.3.0",
-    "typescript": "~2.5.2"
+    "ts-node": "^4.1.0",
+    "typescript": "~2.6.2"
   },
   "devDependencies": {
     "@types/assertion-error": "^1.0.30",
-    "@types/chai": "^4.0.4",
-    "@types/commander": "^2.9.2",
-    "@types/glob": "^5.0.32",
+    "@types/chai": "^4.0.10",
+    "@types/glob": "^5.0.34",
     "@types/json-stable-stringify": "^1.0.32",
-    "@types/mocha": "^2.2.42",
-    "@types/node": "^8.0.27",
-    "ajv": "~5.2.2",
+    "@types/mocha": "^2.2.45",
+    "@types/node": "^8.5.2",
+    "ajv": "~5.5.2",
     "chai": "~4.1.2",
-    "mocha": "~3.5.0",
-    "source-map-support": "~0.4.17",
-    "tslint": "~5.7.0"
+    "mocha": "~4.1.0",
+    "source-map-support": "~0.5.0",
+    "tslint": "~5.8.0"
   },
   "scripts": {
     "precommit": "npm test && git-mods --staged_ok",
@@ -66,8 +65,8 @@
     "preversion": "npm run lint && npm run test",
     "build": "tsc -p .",
     "watch": "tsc -p . -w",
-    "lint": "tslint --project tsconfig.json -c tslint.json --type-check",
-    "test": "tsc -p . && mocha -t 10000 --require source-map-support/register dist/test",
+    "lint": "tslint -p .",
+    "test": "tsc -p . && mocha -t 10000 --require source-map-support/register --recursive dist/test",
     "debug": "ts-node --inspect=19248 --debug-brk ts-json-schema-generator.ts",
     "run": "ts-node ts-json-schema-generator.ts"
   }

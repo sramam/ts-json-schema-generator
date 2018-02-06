@@ -9,18 +9,10 @@ class EnumTypeFormatter {
     getDefinition(type) {
         const values = uniqueArray_1.uniqueArray(type.getValues());
         const types = uniqueArray_1.uniqueArray(values.map((value) => this.getValueType(value)));
-        if (types.length === 1) {
-            return {
-                type: types[0],
-                enum: values,
-            };
-        }
-        else {
-            return {
-                type: types,
-                enum: values,
-            };
-        }
+        return {
+            type: types.length === 1 ? types[0] : types,
+            enum: values,
+        };
     }
     getChildren(type) {
         return [];

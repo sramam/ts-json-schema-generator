@@ -8,6 +8,9 @@
                     "type": "object",
                     "additionalProperties": false,
                     "properties": {
+                        "foo": {
+                            "$ref": "#/definitions/main.Type3"
+                        },
                         "value2": {
                             "type": "number"
                         },
@@ -16,6 +19,7 @@
                         }
                     },
                     "required": [
+                        "foo",
                         "value1",
                         "value2"
                     ]
@@ -26,27 +30,15 @@
             ],
             "additionalProperties": false
         },
-        "main.Type1": {
+        "main.Type3": {
             "type": "object",
             "properties": {
-                "value1": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "value1"
-            ],
-            "additionalProperties": false
-        },
-        "main.Type2": {
-            "type": "object",
-            "properties": {
-                "value2": {
+                "value3": {
                     "type": "number"
                 }
             },
             "required": [
-                "value2"
+                "value3"
             ],
             "additionalProperties": false
         }

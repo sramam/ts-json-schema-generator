@@ -4,18 +4,17 @@
         "main.MyObject": {
             "type": "object",
             "properties": {
-                "foo": {
-                    "type": "number",
-                    "description": "Interface comment."
-                },
-                "bar": {
-                    "type": "number"
+                "optional": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/main.MyObject"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 }
             },
-            "required": [
-                "bar",
-                "foo"
-            ],
             "additionalProperties": false
         }
     },

@@ -11,7 +11,8 @@ class TypeofNodeParser {
     }
     createType(node, context) {
         const symbol = this.typeChecker.getSymbolAtLocation(node.exprName);
-        return this.childNodeParser.createType(symbol.valueDeclaration.type, context);
+        const valueDec = symbol.valueDeclaration;
+        return this.childNodeParser.createType(valueDec.type ? valueDec.type : valueDec.initializer, context);
     }
 }
 exports.TypeofNodeParser = TypeofNodeParser;

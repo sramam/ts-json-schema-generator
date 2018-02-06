@@ -9,9 +9,26 @@ class UnionTypeFormatter {
         return type instanceof UnionType_1.UnionType;
     }
     getDefinition(type) {
-        return {
-            anyOf: type.getTypes().map((item) => this.childTypeFormatter.getDefinition(item)),
-        };
+        const definitions = type.getTypes().map((item) => this.childTypeFormatter.getDefinition(item));
+        let stringType = true;
+        let oneNotEnum = false;
+        for (const def of definitions) {
+            if (def.type !== "string") {
+                stringType = false;
+                break;
+            }
+            if (def.enum === undefined) {
+                oneNotEnum = true;
+            }
+        }
+        if (stringType && oneNotEnum) {
+            return {
+                type: "string",
+            };
+        }
+        return definitions.length > 1 ? {
+            anyOf: definitions,
+        } : definitions[0];
     }
     getChildren(type) {
         return type.getTypes().reduce((result, item) => [

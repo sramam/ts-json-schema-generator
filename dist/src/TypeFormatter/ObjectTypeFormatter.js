@@ -15,11 +15,6 @@ class ObjectTypeFormatter {
         if (type.getBaseTypes().length === 0) {
             return this.getObjectDefinition(type);
         }
-        if (Object.keys(type.getProperties()).length === 0 &&
-            type.getAdditionalProperties() === false &&
-            type.getBaseTypes().length === 1) {
-            return this.childTypeFormatter.getDefinition(type.getBaseTypes()[0]);
-        }
         return type.getBaseTypes().reduce(allOfDefinition_1.getAllOfDefinitionReducer(this.childTypeFormatter), this.getObjectDefinition(type));
     }
     getChildren(type) {
@@ -28,7 +23,7 @@ class ObjectTypeFormatter {
         return [
             ...type.getBaseTypes().reduce((result, baseType) => [
                 ...result,
-                ...this.childTypeFormatter.getChildren(baseType),
+                ...this.childTypeFormatter.getChildren(baseType).slice(1),
             ], []),
             ...additionalProperties instanceof BaseType_1.BaseType ?
                 this.childTypeFormatter.getChildren(additionalProperties) :

@@ -45,28 +45,6 @@
                 "bar"
             ],
             "additionalProperties": false
-        },
-        "main.B": {
-            "type": "object",
-            "additionalProperties": {
-                "type": [
-                    "number",
-                    "string"
-                ]
-            }
-        },
-        "main.C": {
-            "type": "object",
-            "additionalProperties": {
-                "anyOf": [
-                    {
-                        "$ref": "#/definitions/main.A"
-                    },
-                    {
-                        "type": "number"
-                    }
-                ]
-            }
         }
     },
     "$ref": "#/definitions/main.MyObject"
