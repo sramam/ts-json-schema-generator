@@ -29,6 +29,12 @@ export class BasicAnnotationsReader implements AnnotationsReader {
         "default",
     ];
 
+    public constructor(
+        protected typeChecker: ts.TypeChecker,
+    ) {
+
+    }
+
     public getAnnotations(node: ts.Node): Annotations | undefined {
         const symbol: ts.Symbol = (node as any).symbol;
         if (!symbol) {

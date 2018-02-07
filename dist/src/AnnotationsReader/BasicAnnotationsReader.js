@@ -1,6 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class BasicAnnotationsReader {
+    constructor(typeChecker) {
+        this.typeChecker = typeChecker;
+    }
     getAnnotations(node) {
         const symbol = node.symbol;
         if (!symbol) {

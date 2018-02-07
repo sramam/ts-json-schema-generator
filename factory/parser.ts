@@ -49,9 +49,9 @@ export function createParser(program: ts.Program, config: Config): NodeParser {
     }
     function withJsDoc(nodeParser: SubNodeParser): SubNodeParser {
         if (config.jsDoc === "extended") {
-            return new AnnotatedNodeParser(nodeParser, new ExtendedAnnotationsReader());
+            return new AnnotatedNodeParser(nodeParser, new ExtendedAnnotationsReader(typeChecker));
         } else if (config.jsDoc === "basic") {
-            return new AnnotatedNodeParser(nodeParser, new BasicAnnotationsReader());
+            return new AnnotatedNodeParser(nodeParser, new BasicAnnotationsReader(typeChecker));
         } else {
             return nodeParser;
         }

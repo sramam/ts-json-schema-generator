@@ -44,10 +44,10 @@ function createParser(program, config) {
     }
     function withJsDoc(nodeParser) {
         if (config.jsDoc === "extended") {
-            return new AnnotatedNodeParser_1.AnnotatedNodeParser(nodeParser, new ExtendedAnnotationsReader_1.ExtendedAnnotationsReader());
+            return new AnnotatedNodeParser_1.AnnotatedNodeParser(nodeParser, new ExtendedAnnotationsReader_1.ExtendedAnnotationsReader(typeChecker));
         }
         else if (config.jsDoc === "basic") {
-            return new AnnotatedNodeParser_1.AnnotatedNodeParser(nodeParser, new BasicAnnotationsReader_1.BasicAnnotationsReader());
+            return new AnnotatedNodeParser_1.AnnotatedNodeParser(nodeParser, new BasicAnnotationsReader_1.BasicAnnotationsReader(typeChecker));
         }
         else {
             return nodeParser;

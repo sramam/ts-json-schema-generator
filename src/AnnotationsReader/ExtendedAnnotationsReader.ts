@@ -35,7 +35,7 @@ export class ExtendedAnnotationsReader extends BasicAnnotationsReader {
             return undefined;
         }
 
-        const comments: ts.SymbolDisplayPart[] = symbol.getDocumentationComment();
+        const comments: ts.SymbolDisplayPart[] = symbol.getDocumentationComment(this.typeChecker);
         if (!comments || !comments.length) {
             return undefined;
         }

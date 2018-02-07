@@ -23,7 +23,7 @@ class ExtendedAnnotationsReader extends BasicAnnotationsReader_1.BasicAnnotation
         if (!symbol) {
             return undefined;
         }
-        const comments = symbol.getDocumentationComment();
+        const comments = symbol.getDocumentationComment(this.typeChecker);
         if (!comments || !comments.length) {
             return undefined;
         }
