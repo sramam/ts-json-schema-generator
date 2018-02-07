@@ -8,7 +8,7 @@ const formatter_1 = require("../factory/formatter");
 const parser_1 = require("../factory/parser");
 const program_1 = require("../factory/program");
 const SchemaGenerator_1 = require("../src/SchemaGenerator");
-const validator = new Ajv();
+const validator = new Ajv({ schemaId: 'id' });
 const metaSchema = require("ajv/lib/refs/json-schema-draft-04.json");
 validator.addMetaSchema(metaSchema, "http://json-schema.org/draft-04/schema#");
 const basePath = "test/valid-data";
