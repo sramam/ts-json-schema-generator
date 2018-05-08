@@ -91,6 +91,7 @@ export class ExtendedAnnotationsReader extends BasicAnnotationsReader {
             return undefined;
         }
 
-        return {type: jsDocTag.text};
+        // strips surrounding braces added by some IDE tooling
+        return {type: jsDocTag.text.replace(/{(.*)}/, "$1")};
     }
 }

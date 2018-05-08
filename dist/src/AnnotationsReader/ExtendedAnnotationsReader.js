@@ -70,7 +70,7 @@ class ExtendedAnnotationsReader extends BasicAnnotationsReader_1.BasicAnnotation
         if (!jsDocTag || !jsDocTag.text) {
             return undefined;
         }
-        return { type: jsDocTag.text };
+        return { type: jsDocTag.text.replace(/{(.*)}/, "$1") };
     }
 }
 exports.ExtendedAnnotationsReader = ExtendedAnnotationsReader;
