@@ -10,12 +10,12 @@ const args = commander
     .option("-p, --path <path>", "Typescript path")
     .option("-t, --type <name>", "Type name")
     .option("-e, --expose <expose>", "Type exposing", /^(all|none|export)$/, "export")
-    .option("-r, --topRef", "Create a top-level $ref definition", (v) => v === "true" || v === "yes" || v === "1", true)
+    .option("-r, --no-top-ref", "Do not create a top-level $ref definition")
     .option("-j, --jsDoc <extended>", "Read JsDoc annotations", /^(extended|none|basic)$/, "extended")
-    .option("-s, --sortProps", "Sort properties for stable output", (v) => v === "true" || v === "yes" || v === "1", true)
+    .option("-u, --unstable", "Do not sort properties")
     .option("-z, --visibility <tag>", "hides on `@hide` or `@visibility != <tag>`", "")
     .parse(process.argv);
-const config = Object.assign({}, Config_1.DEFAULT_CONFIG, args);
+const config = Object.assign({}, Config_1.DEFAULT_CONFIG, { path: args.path, type: args.type, expose: args.expose, topRef: args.topRef, jsDoc: args.jsDoc, sortProps: !args.unstable });
 try {
     const schema = generator_1.createGenerator(config).createSchema(args.type);
     process.stdout.write(config.sortProps ?

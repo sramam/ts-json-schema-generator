@@ -9,6 +9,7 @@ import { DefinitionType } from "./Type/DefinitionType";
 import { TypeFormatter } from "./TypeFormatter";
 import { getFullName } from "./Utils/fullName";
 import { StringMap } from "./Utils/StringMap";
+import { localSymbolAtNode, symbolAtNode } from "./Utils/symbolAtNode";
 
 export class SchemaGenerator {
     public constructor(
@@ -27,7 +28,7 @@ export class SchemaGenerator {
         const rootType = this.nodeParser.createType(rootNode, new Context());
 
         return {
-            $schema: "http://json-schema.org/draft-04/schema#",
+            $schema: "http://json-schema.org/draft-06/schema#",
             definitions: this.getRootChildDefinitions(rootType),
             ...this.getRootTypeDefinition(rootType),
         };
@@ -37,9 +38,9 @@ export class SchemaGenerator {
         const typeChecker = this.program.getTypeChecker();
         const allTypes = new Map<string, ts.Node>();
 
-        this.program.getSourceFiles().forEach((sourceFile: ts.SourceFile) => {
-            this.inspectNode(sourceFile, typeChecker, allTypes);
-        });
+        this.program.getSourceFiles().forEach((sourceFile) =>
+            this.inspectNode(sourceFile, typeChecker, allTypes),
+        );
 
         // return if exact match is found
         if (allTypes.has(fullName)) {
@@ -61,15 +62,19 @@ export class SchemaGenerator {
                 // only one regexp match. use it.
                 const node = allTypes.get(matches[0])!;
                 return node;
-            case 0:
+            case 0: {
+                const all: string[] = [];
+                allTypes.forEach((val: ts.Node, key: string) => all.push(key));
                 console.warn(`No types matching ${fullName} found.`);
-                allTypes.forEach((val: ts.Node, key: string) => console.warn(key));
+                // console.warn(`No types matching ${fullName} found. ${JSON.stringify(all, null, 2)}`);
                 throw new NoRootTypeError(fullName);
-            default:
+            }
+            default: {
                 // no approximate matches found, list them all and then throw
-                console.warn(`Multiple types match '${fullName}'. Please pick one:`);
-                matches.map((k: string) => console.warn(` ${k}`));
+                const all: string[] = matches.map((key: string) => key);
+                console.warn(`Multiple types match '${fullName}'. Please pick one: ${JSON.stringify(all, null, 2)}`);
                 throw new NoRootTypeError(fullName);
+            }
         }
     }
     private inspectNode(node: ts.Node, typeChecker: ts.TypeChecker, allTypes: Map<string, ts.Node>): void {
@@ -88,13 +93,12 @@ export class SchemaGenerator {
         } else {
             ts.forEachChild(
                 node,
-                (subnode: ts.Node) => this.inspectNode(subnode, typeChecker, allTypes),
-            );
+                (subnode) => this.inspectNode(subnode, typeChecker, allTypes));
         }
     }
 
     private isExportType(node: ts.Node): boolean {
-        const localSymbol: ts.Symbol = (node as any).localSymbol;
+        const localSymbol = localSymbolAtNode(node);
         return localSymbol ? "exportSymbol" in localSymbol : false;
     }
     private isGenericType(node: ts.TypeAliasDeclaration): boolean {
@@ -104,12 +108,18 @@ export class SchemaGenerator {
         );
     }
 
+    // FIXME: can we get rid of this?
+    // private getFullName(node: ts.Node, typeChecker: ts.TypeChecker): string {
+    //     const symbol = symbolAtNode(node)!;
+    //     return typeChecker.getFullyQualifiedName(symbol).replace(/".*"\./, "");
+    // }
+
     private getRootTypeDefinition(rootType: BaseType): Definition {
         return this.typeFormatter.getDefinition(rootType);
     }
     private getRootChildDefinitions(rootType: BaseType): StringMap<Definition> {
         return this.typeFormatter.getChildren(rootType)
-            .filter((child: BaseType) => child instanceof DefinitionType)
+            .filter((child) => child instanceof DefinitionType)
             .reduce((result: StringMap<Definition>, child: DefinitionType) => ({
                 ...result,
                 [child.getId()]: this.typeFormatter.getDefinition(child.getType()),

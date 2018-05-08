@@ -1,6 +1,6 @@
 {
   "name": "ts-json-schema-generator",
-  "version": "0.18.0",
+  "version": "0.25.1",
   "description": "Generate JSON schema from your Typescript sources",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -38,36 +38,58 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "commander": "^2.14.1",
+    "commander": "~2.15.1",
     "glob": "~7.1.2",
     "hook-std": "^0.4.0",
     "json-stable-stringify": "^1.0.1",
-    "ts-node": "^4.1.0",
-    "typescript": "^2.7.1"
+    "ts-node": "^6.0.3",
+    "typescript": "~2.8.3"
   },
   "devDependencies": {
     "@types/assertion-error": "^1.1.0",
-    "@types/chai": "^4.1.2",
+    "@types/chai": "^4.1.3",
     "@types/glob": "^5.0.35",
     "@types/json-stable-stringify": "^1.0.32",
-    "@types/mocha": "^2.2.48",
-    "@types/node": "^9.4.1",
-    "ajv": "^6.1.1",
+    "@types/mocha": "^5.2.0",
+    "@types/node": "^9.0.0",
+    "ajv": "~6.4.0",
     "chai": "~4.1.2",
-    "mocha": "^5.0.0",
-    "source-map-support": "^0.5.3",
-    "tslint": "^5.9.1"
+    "jest": "^22.4.3",
+    "source-map-support": "~0.5.5",
+    "ts-jest": "^22.4.5",
+    "tslint": "~5.10.0"
   },
   "scripts": {
-    "precommit": "npm test && git-mods --staged_ok",
-    "prepush": "npm test && git-mods",
-    "prepublish": "npm run build",
-    "preversion": "npm run lint && npm run test",
-    "build": "tsc -p .",
-    "watch": "tsc -p . -w",
+    "prepublishOnly": "npm run build",
+    "preversion": "npm run lint",
+    "build": "tsc",
+    "watch": "tsc -w",
     "lint": "tslint -p .",
-    "test": "tsc -p . && mocha -t 10000 --require source-map-support/register --recursive dist/test",
-    "debug": "ts-node --inspect=19248 --debug-brk ts-json-schema-generator.ts",
+    "test": "jest test/ --verbose",
+    "debug": "node -r ts-node/register --inspect-brk ts-json-schema-generator.ts",
     "run": "ts-node ts-json-schema-generator.ts"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "testPathIgnorePatterns": [
+      "node_modules",
+      "test-runtime",
+      "<rootDir>/build",
+      "_site",
+      "src"
+    ],
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": false
   }
 }

@@ -1,8 +1,12 @@
 import * as ts from "typescript";
+import { LogicError } from "../Error/LogicError";
 import { Context, NodeParser } from "../NodeParser";
 import { SubNodeParser } from "../SubNodeParser";
 import { BaseType } from "../Type/BaseType";
+import { LiteralType } from "../Type/LiteralType";
 import { ObjectProperty, ObjectType } from "../Type/ObjectType";
+import { UnionType } from "../Type/UnionType";
+import { derefType } from "../Utils/derefType";
 
 export class MappedTypeNodeParser implements SubNodeParser {
     public constructor(
@@ -25,18 +29,36 @@ export class MappedTypeNodeParser implements SubNodeParser {
     }
 
     private getProperties(node: ts.MappedTypeNode, context: Context): ObjectProperty[] {
-        const type: any = this.typeChecker.getTypeFromTypeNode((<any>node.typeParameter.constraint));
+        const constraintType = this.childNodeParser.createType(node.typeParameter.constraint!, context);
 
-        return type.types
-            .reduce((result: ObjectProperty[], t: any) => {
-                const objectProperty = new ObjectProperty(
-                    t.value,
-                    this.childNodeParser.createType(node.type!, context),
-                    !node.questionToken,
-                );
+        const keyListType = derefType(constraintType);
+        if (!(keyListType instanceof UnionType)) {
+            throw new LogicError(`Unexpected type "${constraintType.getId()}" (expected "UnionType")`);
+        }
 
-                result.push(objectProperty);
-                return result;
-            }, []);
+        return keyListType.getTypes().reduce((result: ObjectProperty[], key: LiteralType) => {
+            const objectProperty = new ObjectProperty(
+                key.getValue() as string,
+                this.childNodeParser.createType(node.type!, this.createSubContext(node, key, context)),
+                !node.questionToken,
+            );
+
+            result.push(objectProperty);
+            return result;
+        }, []);
+    }
+
+    private createSubContext(node: ts.MappedTypeNode, key: LiteralType, parentContext: Context): Context {
+        const subContext = new Context(node);
+
+        parentContext.getParameters().forEach((parentParameter) => {
+            subContext.pushParameter(parentParameter);
+            subContext.pushArgument(parentContext.getArgument(parentParameter));
+        });
+
+        subContext.pushParameter(node.typeParameter.name.text);
+        subContext.pushArgument(key);
+
+        return subContext;
     }
 }

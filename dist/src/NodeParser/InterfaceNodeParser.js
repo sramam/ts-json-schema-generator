@@ -25,11 +25,10 @@ class InterfaceNodeParser {
         if (!node.heritageClauses) {
             return [];
         }
-        return node.heritageClauses.reduce((result, baseType) => {
-            return result.concat(baseType.types.map((expression) => {
-                return this.childNodeParser.createType(expression, context);
-            }));
-        }, []);
+        return node.heritageClauses.reduce((result, baseType) => [
+            ...result,
+            ...baseType.types.map((expression) => this.childNodeParser.createType(expression, context)),
+        ], []);
     }
     getProperties(node, context) {
         return node.members
@@ -45,12 +44,11 @@ class InterfaceNodeParser {
         }, []);
     }
     getAdditionalProperties(node, context) {
-        const properties = node.members
-            .filter((property) => property.kind === ts.SyntaxKind.IndexSignature);
-        if (!properties.length) {
+        const property = node.members.find((it) => it.kind === ts.SyntaxKind.IndexSignature);
+        if (!property) {
             return false;
         }
-        const signature = properties[0];
+        const signature = property;
         return this.childNodeParser.createType(signature.type, context);
     }
     getTypeId(node, context) {

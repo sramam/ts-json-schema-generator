@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const LogicError_1 = require("./Error/LogicError");
 class Context {
     constructor(reference) {
         this.arguments = [];
@@ -15,9 +16,12 @@ class Context {
     getArgument(parameterName) {
         const index = this.parameters.indexOf(parameterName);
         if (index < 0 || !this.arguments[index]) {
-            throw new Error(`Could not find type parameter "${parameterName}"`);
+            throw new LogicError_1.LogicError(`Could not find type parameter "${parameterName}"`);
         }
         return this.arguments[index];
+    }
+    getParameters() {
+        return this.parameters;
     }
     getArguments() {
         return this.arguments;

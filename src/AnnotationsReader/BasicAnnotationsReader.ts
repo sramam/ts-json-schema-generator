@@ -1,6 +1,7 @@
 import * as ts from "typescript";
 import { AnnotationsReader } from "../AnnotationsReader";
 import { Annotations } from "../Type/AnnotatedType";
+import { symbolAtNode } from "../Utils/symbolAtNode";
 
 export class BasicAnnotationsReader implements AnnotationsReader {
     private static textTags: string[] = [
@@ -26,6 +27,11 @@ export class BasicAnnotationsReader implements AnnotationsReader {
         "maxItems",
         "uniqueItems",
 
+        "propertyNames",
+        "contains",
+        "const",
+        "examples",
+
         "default",
     ];
 
@@ -36,7 +42,7 @@ export class BasicAnnotationsReader implements AnnotationsReader {
     }
 
     public getAnnotations(node: ts.Node): Annotations | undefined {
-        const symbol: ts.Symbol = (node as any).symbol;
+        const symbol = symbolAtNode(node);
         if (!symbol) {
             return undefined;
         }
@@ -46,7 +52,7 @@ export class BasicAnnotationsReader implements AnnotationsReader {
             return undefined;
         }
 
-        const annotations: Annotations = jsDocTags.reduce((result: Annotations, jsDocTag: ts.JSDocTagInfo) => {
+        const annotations = jsDocTags.reduce((result: Annotations, jsDocTag) => {
             const value = this.parseJsDocTag(jsDocTag);
             if (value !== undefined) {
                 result[jsDocTag.name] = value;

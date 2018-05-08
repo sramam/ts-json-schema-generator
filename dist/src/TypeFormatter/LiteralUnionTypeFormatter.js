@@ -31,10 +31,10 @@ class LiteralUnionTypeFormatter {
         return type.getTypes().every((item) => item instanceof LiteralType_1.LiteralType || item instanceof NullType_1.NullType);
     }
     getLiteralValue(value) {
-        return value.getId() === "null" ? null : value.getValue();
+        return value instanceof LiteralType_1.LiteralType ? value.getValue() : null;
     }
     getLiteralType(value) {
-        return value.getId() === "null" ? "null" : typeof value.getValue();
+        return value instanceof LiteralType_1.LiteralType ? typeof value.getValue() : "null";
     }
 }
 exports.LiteralUnionTypeFormatter = LiteralUnionTypeFormatter;

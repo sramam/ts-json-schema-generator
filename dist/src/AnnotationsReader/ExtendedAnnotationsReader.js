@@ -1,13 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const symbolAtNode_1 = require("../Utils/symbolAtNode");
 const BasicAnnotationsReader_1 = require("./BasicAnnotationsReader");
 class ExtendedAnnotationsReader extends BasicAnnotationsReader_1.BasicAnnotationsReader {
+    constructor(typeChecker) {
+        super(typeChecker);
+        this.typeChecker = typeChecker;
+    }
     getAnnotations(node) {
         const annotations = Object.assign({}, this.getDescriptionAnnotation(node), this.getAllAnnotations(node), super.getAnnotations(node));
         return Object.keys(annotations).length ? annotations : undefined;
     }
     isNullable(node) {
-        const symbol = node.symbol;
+        const symbol = symbolAtNode_1.symbolAtNode(node);
         if (!symbol) {
             return false;
         }
@@ -19,7 +24,7 @@ class ExtendedAnnotationsReader extends BasicAnnotationsReader_1.BasicAnnotation
         return !!jsDocTag;
     }
     getDescriptionAnnotation(node) {
-        const symbol = node.symbol;
+        const symbol = symbolAtNode_1.symbolAtNode(node);
         if (!symbol) {
             return undefined;
         }
@@ -53,7 +58,7 @@ class ExtendedAnnotationsReader extends BasicAnnotationsReader_1.BasicAnnotation
         return undefined;
     }
     getTypeAnnotation(node) {
-        const symbol = node.symbol;
+        const symbol = symbolAtNode_1.symbolAtNode(node);
         if (!symbol) {
             return undefined;
         }
@@ -61,7 +66,7 @@ class ExtendedAnnotationsReader extends BasicAnnotationsReader_1.BasicAnnotation
         if (!jsDocTags || !jsDocTags.length) {
             return undefined;
         }
-        const jsDocTag = jsDocTags.find((tag) => tag.name === "asType" || tag.name === "TJS-type");
+        const jsDocTag = jsDocTags.find((tag) => tag.name === "asType");
         if (!jsDocTag || !jsDocTag.text) {
             return undefined;
         }

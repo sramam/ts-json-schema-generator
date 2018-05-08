@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const ts = require("typescript");
+const symbolAtNode_1 = require("./symbolAtNode");
 function inspectAllJsDocTags(symbol, visibility = "") {
     const jsDocTags = symbol.getJsDocTags();
     if (!jsDocTags || !jsDocTags.length) {
@@ -17,7 +18,7 @@ function inspectAllJsDocTags(symbol, visibility = "") {
 }
 exports.inspectAllJsDocTags = inspectAllJsDocTags;
 function isNodeHidden(node, visibility) {
-    const symbol = node.symbol;
+    const symbol = symbolAtNode_1.symbolAtNode(node);
     if (!symbol) {
         return null;
     }

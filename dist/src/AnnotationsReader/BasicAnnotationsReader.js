@@ -1,11 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const symbolAtNode_1 = require("../Utils/symbolAtNode");
 class BasicAnnotationsReader {
     constructor(typeChecker) {
         this.typeChecker = typeChecker;
     }
     getAnnotations(node) {
-        const symbol = node.symbol;
+        const symbol = symbolAtNode_1.symbolAtNode(node);
         if (!symbol) {
             return undefined;
         }
@@ -62,6 +63,10 @@ BasicAnnotationsReader.jsonTags = [
     "minItems",
     "maxItems",
     "uniqueItems",
+    "propertyNames",
+    "contains",
+    "const",
+    "examples",
     "default",
 ];
 exports.BasicAnnotationsReader = BasicAnnotationsReader;

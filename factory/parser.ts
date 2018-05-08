@@ -1,5 +1,4 @@
 import * as ts from "typescript";
-
 import { BasicAnnotationsReader } from "../src/AnnotationsReader/BasicAnnotationsReader";
 import { ExtendedAnnotationsReader } from "../src/AnnotationsReader/ExtendedAnnotationsReader";
 import { ChainNodeParser } from "../src/ChainNodeParser";
@@ -12,6 +11,7 @@ import { AnyTypeNodeParser } from "../src/NodeParser/AnyTypeNodeParser";
 import { ArrayNodeParser } from "../src/NodeParser/ArrayNodeParser";
 import { BooleanLiteralNodeParser } from "../src/NodeParser/BooleanLiteralNodeParser";
 import { BooleanTypeNodeParser } from "../src/NodeParser/BooleanTypeNodeParser";
+import { CallExpressionParser } from "../src/NodeParser/CallExpressionParser";
 import { EnumNodeParser } from "../src/NodeParser/EnumNodeParser";
 import { ExpressionWithTypeArgumentsNodeParser } from "../src/NodeParser/ExpressionWithTypeArgumentsNodeParser";
 import { IndexedAccessTypeNodeParser } from "../src/NodeParser/IndexedAccessTypeNodeParser";
@@ -32,10 +32,11 @@ import { TypeLiteralNodeParser } from "../src/NodeParser/TypeLiteralNodeParser";
 import { TypeofNodeParser } from "../src/NodeParser/TypeofNodeParser";
 import { TypeOperatorNodeParser } from "../src/NodeParser/TypeOperatorNodeParser";
 import { TypeReferenceNodeParser } from "../src/NodeParser/TypeReferenceNodeParser";
+import { UndefinedTypeNodeParser } from "../src/NodeParser/UndefinedTypeNodeParser";
 import { UnionNodeParser } from "../src/NodeParser/UnionNodeParser";
-import { VoidTypeNodeParser } from "../src/NodeParser/VoidTypeNodeParser";
 import { SubNodeParser } from "../src/SubNodeParser";
 import { TopRefNodeParser } from "../src/TopRefNodeParser";
+
 
 export function createParser(program: ts.Program, config: Config): NodeParser {
     const typeChecker = program.getTypeChecker();
@@ -65,7 +66,7 @@ export function createParser(program: ts.Program, config: Config): NodeParser {
         .addNodeParser(new NumberTypeNodeParser())
         .addNodeParser(new BooleanTypeNodeParser())
         .addNodeParser(new AnyTypeNodeParser())
-        .addNodeParser(new VoidTypeNodeParser())
+        .addNodeParser(new UndefinedTypeNodeParser())
         .addNodeParser(new ObjectTypeNodeParser())
 
         .addNodeParser(new StringLiteralNodeParser())
@@ -87,6 +88,8 @@ export function createParser(program: ts.Program, config: Config): NodeParser {
         .addNodeParser(new UnionNodeParser(typeChecker, chainNodeParser, config.visibility))
         .addNodeParser(new IntersectionNodeParser(typeChecker, chainNodeParser, config.visibility))
         .addNodeParser(new TupleNodeParser(typeChecker, chainNodeParser, config.visibility))
+
+        .addNodeParser(new CallExpressionParser(typeChecker, chainNodeParser))
 
         .addNodeParser(withCircular(withExpose(withJsDoc(
             new TypeAliasNodeParser(typeChecker, chainNodeParser)))))

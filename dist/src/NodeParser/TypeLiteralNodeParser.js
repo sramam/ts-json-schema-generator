@@ -28,12 +28,11 @@ class TypeLiteralNodeParser {
         }, []);
     }
     getAdditionalProperties(node, context) {
-        const properties = node.members
-            .filter((property) => property.kind === ts.SyntaxKind.IndexSignature);
-        if (!properties.length) {
+        const property = node.members.find((it) => it.kind === ts.SyntaxKind.IndexSignature);
+        if (!property) {
             return false;
         }
-        const signature = properties[0];
+        const signature = property;
         return this.childNodeParser.createType(signature.type, context);
     }
     getTypeId(node, context) {

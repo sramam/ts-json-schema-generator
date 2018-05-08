@@ -19,9 +19,9 @@ class EnumNodeParser {
         return node.kind === ts.SyntaxKind.EnumDeclaration || node.kind === ts.SyntaxKind.EnumMember;
     }
     createType(node, context) {
-        const members = node.kind === ts.SyntaxKind.EnumDeclaration ?
-            node.members :
-            [node];
+        const members = node.kind === ts.SyntaxKind.EnumDeclaration
+            ? node.members.slice()
+            : [node];
         return new EnumType_1.EnumType(`enum-${node.getFullStart()}`, members
             .filter((member) => !isMemberHidden(member, this.visibility))
             .map((member, index) => this.getMemberValue(member, index)));

@@ -1,6 +1,6 @@
 import * as Ajv from "ajv";
 import { assert } from "chai";
-import * as fs from "fs";
+import { readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
 import * as ts from "typescript";
 import { createFormatter } from "../factory/formatter";
@@ -9,9 +9,9 @@ import { createProgram } from "../factory/program";
 import { Config } from "../src/Config";
 import { SchemaGenerator } from "../src/SchemaGenerator";
 
-const validator: Ajv.Ajv = new Ajv({schemaId: "id"});
-const metaSchema: object = require("ajv/lib/refs/json-schema-draft-04.json");
-validator.addMetaSchema(metaSchema, "http://json-schema.org/draft-04/schema#");
+const validator = new Ajv();
+const metaSchema: object = require("ajv/lib/refs/json-schema-draft-06.json");
+validator.addMetaSchema(metaSchema);
 
 const basePath = "test/valid-data";
 
@@ -40,17 +40,21 @@ function assertSchema(name: string, type: string, only: boolean = false): void {
             createFormatter(config),
         );
 
-        const expected: any = JSON.parse(fs.readFileSync(resolve(`${basePath}/${name}/schema.json`), "utf8"));
-        const actual: any = JSON.parse(JSON.stringify(generator.createSchema(type)));
+        const schema = generator.createSchema(type);
+        const expected: any = JSON.parse(readFileSync(resolve(`${basePath}/${name}/schema.json`), "utf8"));
+        const actual: any = JSON.parse(JSON.stringify(schema));
+
+        // uncomment to write test files
+        // writeFileSync(resolve(`${basePath}/${name}/schema.json`), JSON.stringify(schema, null, 4), "utf8");
 
         // uncomment this line to update expected output automatically.
-        fs.writeFileSync(resolve(`${basePath}/${name}/schema.json`), JSON.stringify(actual, null, 4), "utf8");
+        writeFileSync(resolve(`${basePath}/${name}/schema.json`), JSON.stringify(actual, null, 4), "utf8");
 
         assert.isObject(actual);
         assert.deepEqual(actual, expected);
 
         validator.validateSchema(actual);
-        assert.equal(validator.errors, null);
+        assert.isNull(validator.errors);
     });
 }
 
@@ -107,9 +111,18 @@ describe("valid-data", () => {
 
     assertSchema("type-typeof", "MyType");
     assertSchema("type-typeof-value", "MyType");
-    assertSchema("type-indexed-access", "MyType");
-    assertSchema("type-keyof", "MyType");
-    assertSchema("type-mapped", "MyObject");
+
+    assertSchema("type-indexed-access-tuple-1", "MyType");
+    assertSchema("type-indexed-access-tuple-2", "MyType");
+    assertSchema("type-indexed-access-object-1", "MyType");
+    assertSchema("type-indexed-access-object-2", "MyType");
+    assertSchema("type-keyof-tuple", "MyType");
+    assertSchema("type-keyof-object", "MyType");
+    assertSchema("type-mapped-simple", "MyObject");
+    assertSchema("type-mapped-index", "MyObject");
+    assertSchema("type-mapped-literal", "MyObject");
+    assertSchema("type-mapped-generic", "MyObject");
+    assertSchema("type-mapped-native", "MyObject");
 
     assertSchema("generic-simple", "MyObject");
     assertSchema("generic-arrays", "MyObject");
@@ -120,4 +133,8 @@ describe("valid-data", () => {
     assertSchema("generic-hell", "MyObject");
 
     assertSchema("nullable-null", "MyObject");
+
+    assertSchema("undefined-alias", "MyType");
+    assertSchema("undefined-union", "MyType");
+    assertSchema("undefined-property", "MyType");
 });

@@ -5,6 +5,7 @@ const NoRootTypeError_1 = require("./Error/NoRootTypeError");
 const NodeParser_1 = require("./NodeParser");
 const DefinitionType_1 = require("./Type/DefinitionType");
 const fullName_1 = require("./Utils/fullName");
+const symbolAtNode_1 = require("./Utils/symbolAtNode");
 class SchemaGenerator {
     constructor(program, nodeParser, typeFormatter) {
         this.program = program;
@@ -18,14 +19,12 @@ class SchemaGenerator {
     createSchema(fullName) {
         const rootNode = this.findRootNode(fullName);
         const rootType = this.nodeParser.createType(rootNode, new NodeParser_1.Context());
-        return Object.assign({ $schema: "http://json-schema.org/draft-04/schema#", definitions: this.getRootChildDefinitions(rootType) }, this.getRootTypeDefinition(rootType));
+        return Object.assign({ $schema: "http://json-schema.org/draft-06/schema#", definitions: this.getRootChildDefinitions(rootType) }, this.getRootTypeDefinition(rootType));
     }
     findRootNode(fullName) {
         const typeChecker = this.program.getTypeChecker();
         const allTypes = new Map();
-        this.program.getSourceFiles().forEach((sourceFile) => {
-            this.inspectNode(sourceFile, typeChecker, allTypes);
-        });
+        this.program.getSourceFiles().forEach((sourceFile) => this.inspectNode(sourceFile, typeChecker, allTypes));
         if (allTypes.has(fullName)) {
             return allTypes.get(fullName);
         }
@@ -40,14 +39,17 @@ class SchemaGenerator {
             case 1:
                 const node = allTypes.get(matches[0]);
                 return node;
-            case 0:
+            case 0: {
+                const all = [];
+                allTypes.forEach((val, key) => all.push(key));
                 console.warn(`No types matching ${fullName} found.`);
-                allTypes.forEach((val, key) => console.warn(key));
                 throw new NoRootTypeError_1.NoRootTypeError(fullName);
-            default:
-                console.warn(`Multiple types match '${fullName}'. Please pick one:`);
-                matches.map((k) => console.warn(` ${k}`));
+            }
+            default: {
+                const all = matches.map((key) => key);
+                console.warn(`Multiple types match '${fullName}'. Please pick one: ${JSON.stringify(all, null, 2)}`);
                 throw new NoRootTypeError_1.NoRootTypeError(fullName);
+            }
         }
     }
     inspectNode(node, typeChecker, allTypes) {
@@ -67,7 +69,7 @@ class SchemaGenerator {
         }
     }
     isExportType(node) {
-        const localSymbol = node.localSymbol;
+        const localSymbol = symbolAtNode_1.localSymbolAtNode(node);
         return localSymbol ? "exportSymbol" in localSymbol : false;
     }
     isGenericType(node) {

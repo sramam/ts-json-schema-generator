@@ -8,12 +8,10 @@ import { createProgram } from "../factory/program";
 import { Config } from "../src/Config";
 import { SchemaGenerator } from "../src/SchemaGenerator";
 
-const basePath = "test/invalid-data";
-
-function assertSchema(name: string, type: string): void {
+function assertSchema(name: string, type: string, message: string): void {
     it(name, () => {
         const config: Config = {
-            path: resolve(`${basePath}/${name}/*.ts`),
+            path: resolve(`test/invalid-data/${name}/*.ts`),
             type: type,
 
             expose: "export",
@@ -29,19 +27,17 @@ function assertSchema(name: string, type: string): void {
             createParser(program, config),
             createFormatter(config),
         );
-        try {
-            generator.createSchema(type);
-            assert.equal(false, true, `Expected createSchema to throw`);
-        } catch (err) {
-            // expected error. consume and continue
-        } finally {
-            unhook();
-        }
+
+        assert.throws(() => generator.createSchema(type), message);
+        unhook();
     });
 }
 
 describe("invalid-data", () => {
     // TODO: template recursive
 
-    assertSchema("script-empty", "MyType");
+    assertSchema("script-empty", "MyType", `No root type "MyType" found`);
+    assertSchema("literal-index-type", "MyType", `Unknown node " ["abc", "def"]`);
+    assertSchema("literal-array-type", "MyType", `Unknown node " ["abc", "def"]`);
+    assertSchema("literal-object-type", "MyType", `Unknown node " {abc: "def"}`);
 });

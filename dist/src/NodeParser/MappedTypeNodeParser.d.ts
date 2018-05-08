@@ -9,4 +9,5 @@ export declare class MappedTypeNodeParser implements SubNodeParser {
     supportsNode(node: ts.MappedTypeNode): boolean;
     createType(node: ts.MappedTypeNode, context: Context): BaseType;
     private getProperties(node, context);
+    private createSubContext(node, key, parentContext);
 }

@@ -8,7 +8,8 @@ export declare class Context {
     pushArgument(argumentType: BaseType): void;
     pushParameter(parameterName: string): void;
     getArgument(parameterName: string): BaseType;
-    getArguments(): BaseType[];
+    getParameters(): ReadonlyArray<string>;
+    getArguments(): ReadonlyArray<BaseType>;
     getReference(): ts.Node | undefined;
 }
 export interface NodeParser {

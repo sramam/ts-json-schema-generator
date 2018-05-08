@@ -10,4 +10,6 @@ export declare class ObjectTypeFormatter implements SubTypeFormatter {
     getDefinition(type: ObjectType): Definition;
     getChildren(type: ObjectType): BaseType[];
     private getObjectDefinition(type);
+    private getAdditionalProperties(additionalProperties);
+    private prepareObjectProperty(property);
 }

@@ -9,8 +9,7 @@ class TupleTypeFormatter {
         return type instanceof TupleType_1.TupleType;
     }
     getDefinition(type) {
-        const tupleDefinitions = type.getTypes()
-            .map((item) => this.childTypeFormatter.getDefinition(item));
+        const tupleDefinitions = type.getTypes().map((item) => this.childTypeFormatter.getDefinition(item));
         return Object.assign({ type: "array", items: tupleDefinitions, minItems: tupleDefinitions.length }, (tupleDefinitions.length > 1 ? { additionalItems: { anyOf: tupleDefinitions } } : {}));
     }
     getChildren(type) {

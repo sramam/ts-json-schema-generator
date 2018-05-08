@@ -20,8 +20,8 @@ export class TupleNodeParser implements SubNodeParser {
         const hidden = referenceHidden(this.typeChecker, this.visibility);
         return new TupleType(
             node.elementTypes
-                .filter((subnode: ts.Node) => !hidden(subnode))
-                .map((item: ts.TypeNode) => {
+                .filter((item) => !hidden(item))
+                .map((item) => {
                     return this.childNodeParser.createType(item, context);
                 }),
         );
