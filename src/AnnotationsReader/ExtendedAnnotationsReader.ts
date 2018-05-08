@@ -55,22 +55,22 @@ export class ExtendedAnnotationsReader extends BasicAnnotationsReader {
             return jsDocTags.reduce((
                 _: { [key: string]: any },
                 t: ts.JSDocTagInfo) => {
-                    switch (t.name) {
-                        case "nullable":
-                            _.nullable = "";
-                            break;
-                        case "asType":
-                        case "TJS-type":
-                            _.type = t.text;
-                            break;
-                        case "memberOf":
-                            // skip
-                            break;
-                        default:
-                            _[t.name] = t.text;
-                    }
-                    return _;
-                }, {});
+                switch (t.name) {
+                    case "nullable":
+                        _.nullable = "";
+                        break;
+                    case "asType":
+                    case "TJS-type":
+                        _.type = t.text;
+                        break;
+                    case "memberOf":
+                        // skip
+                        break;
+                    default:
+                        _[t.name] = t.text;
+                }
+                return _;
+            }, {});
         }
         return undefined;
     }
@@ -91,7 +91,18 @@ export class ExtendedAnnotationsReader extends BasicAnnotationsReader {
             return undefined;
         }
 
+        const permissibleTypes = [
+            "array",
+            "boolean",
+            "integer",
+            "null",
+            "number",
+            "object",
+            "string",
+        ];
+        const val = jsDocTag.text.replace(/{(.*)}/, "$1");
+        const key = (-1 < permissibleTypes.indexOf(val)) ? "type" : "tsType";
         // strips surrounding braces added by some IDE tooling
-        return {type: jsDocTag.text.replace(/{(.*)}/, "$1")};
+        return { [key]: val };
     }
 }

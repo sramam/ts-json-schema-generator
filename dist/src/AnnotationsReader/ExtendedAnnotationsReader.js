@@ -70,7 +70,18 @@ class ExtendedAnnotationsReader extends BasicAnnotationsReader_1.BasicAnnotation
         if (!jsDocTag || !jsDocTag.text) {
             return undefined;
         }
-        return { type: jsDocTag.text.replace(/{(.*)}/, "$1") };
+        const permissibleTypes = [
+            "array",
+            "boolean",
+            "integer",
+            "null",
+            "number",
+            "object",
+            "string",
+        ];
+        const val = jsDocTag.text.replace(/{(.*)}/, "$1");
+        const key = (-1 < permissibleTypes.indexOf(val)) ? "type" : "tsType";
+        return { [key]: val };
     }
 }
 exports.ExtendedAnnotationsReader = ExtendedAnnotationsReader;
