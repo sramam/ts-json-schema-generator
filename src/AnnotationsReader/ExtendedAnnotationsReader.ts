@@ -63,6 +63,14 @@ export class ExtendedAnnotationsReader extends BasicAnnotationsReader {
                     case "TJS-type":
                         _.type = t.text;
                         break;
+                    case "type": {
+                        const processed = this.getTypeAnnotation(node);
+                        if (!!processed) {
+                            const { key, val } = processed;
+                            _[key] = val;
+                        }
+                        break;
+                    }
                     case "memberOf":
                         // skip
                         break;
@@ -86,7 +94,7 @@ export class ExtendedAnnotationsReader extends BasicAnnotationsReader {
             return undefined;
         }
 
-        const jsDocTag = jsDocTags.find((tag) => tag.name === "asType");
+        const jsDocTag = jsDocTags.find((tag) => tag.name === "type");
         if (!jsDocTag || !jsDocTag.text) {
             return undefined;
         }
