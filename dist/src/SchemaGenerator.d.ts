@@ -6,6 +6,7 @@ export declare class SchemaGenerator {
     private program;
     private nodeParser;
     private typeFormatter;
+    private allTypes;
     constructor(program: ts.Program, nodeParser: NodeParser, typeFormatter: TypeFormatter);
     createSchema(fullName: string): Schema;
     private findRootNode(fullName);

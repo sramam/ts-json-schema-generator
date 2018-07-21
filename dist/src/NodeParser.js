@@ -5,6 +5,7 @@ class Context {
     constructor(reference) {
         this.arguments = [];
         this.parameters = [];
+        this.defaultArgument = new Map();
         this.reference = reference;
     }
     pushArgument(argumentType) {
@@ -13,9 +14,15 @@ class Context {
     pushParameter(parameterName) {
         this.parameters.push(parameterName);
     }
+    setDefault(parameterName, argumentType) {
+        this.defaultArgument.set(parameterName, argumentType);
+    }
     getArgument(parameterName) {
         const index = this.parameters.indexOf(parameterName);
         if (index < 0 || !this.arguments[index]) {
+            if (this.defaultArgument.has(parameterName)) {
+                return this.defaultArgument.get(parameterName);
+            }
             throw new LogicError_1.LogicError(`Could not find type parameter "${parameterName}"`);
         }
         return this.arguments[index];

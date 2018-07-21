@@ -23,25 +23,27 @@ class SchemaGenerator {
     }
     findRootNode(fullName) {
         const typeChecker = this.program.getTypeChecker();
-        const allTypes = new Map();
-        this.program.getSourceFiles().forEach((sourceFile) => this.inspectNode(sourceFile, typeChecker, allTypes));
-        if (allTypes.has(fullName)) {
-            return allTypes.get(fullName);
+        if (!this.allTypes) {
+            this.allTypes = new Map();
+            this.program.getSourceFiles().forEach((sourceFile) => this.inspectNode(sourceFile, typeChecker, this.allTypes));
+        }
+        if (this.allTypes.has(fullName)) {
+            return this.allTypes.get(fullName);
         }
         const re = new RegExp(`.*${fullName}`);
         const matches = [];
-        for (const k of allTypes.keys()) {
+        for (const k of this.allTypes.keys()) {
             if (k.match(re)) {
                 matches.push(k);
             }
         }
         switch (matches.length) {
             case 1:
-                const node = allTypes.get(matches[0]);
+                const node = this.allTypes.get(matches[0]);
                 return node;
             case 0: {
                 const all = [];
-                allTypes.forEach((val, key) => all.push(key));
+                this.allTypes.forEach((val, key) => all.push(key));
                 console.warn(`No types matching ${fullName} found.`);
                 throw new NoRootTypeError_1.NoRootTypeError(fullName);
             }

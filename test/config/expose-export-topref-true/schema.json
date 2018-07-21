@@ -48,6 +48,21 @@
                 },
                 "mixedAlias": {
                     "$ref": "#/definitions/main.MixedAlias"
+                },
+                "publicAnonymousTypeLiteral": {
+                    "$ref": "#/definitions/main.PublicAnonymousTypeLiteral"
+                },
+                "privateAnonymousTypeLiteral": {
+                    "type": "object",
+                    "properties": {
+                        "privateValue": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "privateValue"
+                    ],
+                    "additionalProperties": false
                 }
             },
             "required": [
@@ -56,7 +71,9 @@
                 "privateInterface",
                 "privateAlias",
                 "mixedInterface",
-                "mixedAlias"
+                "mixedAlias",
+                "publicAnonymousTypeLiteral",
+                "privateAnonymousTypeLiteral"
             ],
             "additionalProperties": false
         },
@@ -84,6 +101,18 @@
             },
             "required": [
                 "privateValue"
+            ],
+            "additionalProperties": false
+        },
+        "main.PublicAnonymousTypeLiteral": {
+            "type": "object",
+            "properties": {
+                "publicValue": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "publicValue"
             ],
             "additionalProperties": false
         }

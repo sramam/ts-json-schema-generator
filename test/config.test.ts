@@ -38,7 +38,7 @@ function assertSchema(name: string, partialConfig: PartialConfig & { type: strin
         fs.writeFileSync(resolve(`${basePath}/${name}/schema.json`), JSON.stringify(actual, null, 4), "utf8");
 
         assert.isObject(actual);
-        assert.deepEqual(actual, expected);
+        assert.deepEqual(actual, expected, JSON.stringify({actual, expected}));
 
         validator.validateSchema(actual);
         assert.isNull(validator.errors);
@@ -72,9 +72,25 @@ describe("config", () => {
         { type: "MyObject", expose: "export", topRef: true, jsDoc: "extended", visibility });
 
     assertSchema("jsdoc-hide",
-        { type: "MyObject", expose: "export", topRef: true, jsDoc: "extended", visibility });
+        {type: "MyObject", expose: "export", topRef: true, jsDoc: "extended", visibility });
     assertSchema("jsdoc-inheritance",
-        { type: "MyObject", expose: "export", topRef: true, jsDoc: "extended", visibility });
+        {type: "MyObject", expose: "export", topRef: true, jsDoc: "extended", visibility });
+    assertSchema("strict-tuples-true", {
+        type: "MyObject",
+        expose: "export",
+        topRef: true,
+        jsDoc: "none",
+        strictTuples: true,
+        visibility,
+    });
+    assertSchema("strict-tuples-false", {
+        type: "MyObject",
+        expose: "export",
+        topRef: true,
+        jsDoc: "none",
+        strictTuples: false,
+        visibility,
+    });
     assertSchema("jsdoc-visible",
         { type: "MyObject", expose: "export", topRef: true, jsDoc: "extended", visibility: "status" });
 });

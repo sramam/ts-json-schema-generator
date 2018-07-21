@@ -30,6 +30,10 @@ const args = commander
         "Do not sort properties",
     )
     .option(
+        "-s, --strictTuples",
+        "Do not allow additional items on tuples",
+    )
+    .option(
         "-z, --visibility <tag>",
         "hides on `@hide` or `@visibility != <tag>`",
         "",
@@ -44,6 +48,7 @@ const config: Config = {
     topRef: args.topRef,
     jsDoc: args.jsDoc,
     sortProps: !args.unstable,
+    strictTuples: args.strictTuples,
 };
 
 try {

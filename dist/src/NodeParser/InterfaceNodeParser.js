@@ -17,6 +17,10 @@ class InterfaceNodeParser {
             node.typeParameters.forEach((typeParam) => {
                 const nameSymbol = this.typeChecker.getSymbolAtLocation(typeParam.name);
                 context.pushParameter(nameSymbol.name);
+                if (typeParam.default) {
+                    const type = this.childNodeParser.createType(typeParam.default, context);
+                    context.setDefault(nameSymbol.name, type);
+                }
             });
         }
         return new ObjectType_1.ObjectType(this.getTypeId(node, context), this.getBaseTypes(node, context), this.getProperties(node, context), this.getAdditionalProperties(node, context));

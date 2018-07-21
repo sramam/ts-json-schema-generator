@@ -13,9 +13,10 @@ const args = commander
     .option("-r, --no-top-ref", "Do not create a top-level $ref definition")
     .option("-j, --jsDoc <extended>", "Read JsDoc annotations", /^(extended|none|basic)$/, "extended")
     .option("-u, --unstable", "Do not sort properties")
+    .option("-s, --strictTuples", "Do not allow additional items on tuples")
     .option("-z, --visibility <tag>", "hides on `@hide` or `@visibility != <tag>`", "")
     .parse(process.argv);
-const config = Object.assign({}, Config_1.DEFAULT_CONFIG, { path: args.path, type: args.type, expose: args.expose, topRef: args.topRef, jsDoc: args.jsDoc, sortProps: !args.unstable });
+const config = Object.assign({}, Config_1.DEFAULT_CONFIG, { path: args.path, type: args.type, expose: args.expose, topRef: args.topRef, jsDoc: args.jsDoc, sortProps: !args.unstable, strictTuples: args.strictTuples });
 try {
     const schema = generator_1.createGenerator(config).createSchema(args.type);
     process.stdout.write(config.sortProps ?

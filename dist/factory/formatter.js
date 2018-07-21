@@ -41,7 +41,7 @@ function createFormatter(config) {
         .addTypeFormatter(new PrimitiveUnionTypeFormatter_1.PrimitiveUnionTypeFormatter())
         .addTypeFormatter(new LiteralUnionTypeFormatter_1.LiteralUnionTypeFormatter())
         .addTypeFormatter(new ArrayTypeFormatter_1.ArrayTypeFormatter(circularReferenceTypeFormatter))
-        .addTypeFormatter(new TupleTypeFormatter_1.TupleTypeFormatter(circularReferenceTypeFormatter))
+        .addTypeFormatter(new TupleTypeFormatter_1.TupleTypeFormatter(circularReferenceTypeFormatter, config))
         .addTypeFormatter(new UnionTypeFormatter_1.UnionTypeFormatter(circularReferenceTypeFormatter))
         .addTypeFormatter(new IntersectionTypeFormatter_1.IntersectionTypeFormatter(circularReferenceTypeFormatter));
     return circularReferenceTypeFormatter;

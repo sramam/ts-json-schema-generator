@@ -12,6 +12,8 @@ import { StringMap } from "./Utils/StringMap";
 import { localSymbolAtNode, symbolAtNode } from "./Utils/symbolAtNode";
 
 export class SchemaGenerator {
+    private allTypes: Map<string, ts.Node>;
+
     public constructor(
         private program: ts.Program,
         private nodeParser: NodeParser,
@@ -36,22 +38,25 @@ export class SchemaGenerator {
 
     private findRootNode(fullName: string): ts.Node {
         const typeChecker = this.program.getTypeChecker();
-        const allTypes = new Map<string, ts.Node>();
 
-        this.program.getSourceFiles().forEach((sourceFile) =>
-            this.inspectNode(sourceFile, typeChecker, allTypes),
-        );
+        if (!this.allTypes) {
+            this.allTypes = new Map<string, ts.Node>();
+
+            this.program.getSourceFiles().forEach(
+                (sourceFile) => this.inspectNode(sourceFile, typeChecker, this.allTypes),
+            );
+        }
 
         // return if exact match is found
-        if (allTypes.has(fullName)) {
-            return allTypes.get(fullName)!;
+        if (this.allTypes.has(fullName)) {
+            return this.allTypes.get(fullName)!;
         }
 
         // if an exact match is not found, use fullName as RegExp string,
         // to find all approximate matches
         const re = new RegExp(`.*${fullName}`);
         const matches = <string[]>[];
-        for (const k of allTypes.keys()) {
+        for (const k of this.allTypes.keys()) {
             if (k.match(re)) {
                 matches.push(k);
             }
@@ -60,11 +65,11 @@ export class SchemaGenerator {
         switch (matches.length) {
             case 1:
                 // only one regexp match. use it.
-                const node = allTypes.get(matches[0])!;
+                const node = this.allTypes.get(matches[0])!;
                 return node;
             case 0: {
                 const all: string[] = [];
-                allTypes.forEach((val: ts.Node, key: string) => all.push(key));
+                this.allTypes.forEach((val: ts.Node, key: string) => all.push(key));
                 console.warn(`No types matching ${fullName} found.`);
                 // console.warn(`No types matching ${fullName} found. ${JSON.stringify(all, null, 2)}`);
                 throw new NoRootTypeError(fullName);

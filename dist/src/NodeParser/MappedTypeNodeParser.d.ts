@@ -8,6 +8,6 @@ export declare class MappedTypeNodeParser implements SubNodeParser {
     constructor(typeChecker: ts.TypeChecker, childNodeParser: NodeParser);
     supportsNode(node: ts.MappedTypeNode): boolean;
     createType(node: ts.MappedTypeNode, context: Context): BaseType;
-    private getProperties(node, context);
+    private getProperties(node, keyListType, context);
     private createSubContext(node, key, parentContext);
 }

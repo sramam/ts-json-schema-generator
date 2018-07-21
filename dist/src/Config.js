@@ -5,6 +5,7 @@ exports.DEFAULT_CONFIG = {
     topRef: true,
     jsDoc: "extended",
     sortProps: true,
+    strictTuples: false,
     visibility: "",
 };
 //# sourceMappingURL=Config.js.map

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const ts = require("typescript");
 const DefinitionType_1 = require("./Type/DefinitionType");
 const fullName_1 = require("./Utils/fullName");
 class ExposeNodeParser {
@@ -21,7 +22,7 @@ class ExposeNodeParser {
     }
     isExportNode(node) {
         if (this.expose === "all") {
-            return true;
+            return node.kind !== ts.SyntaxKind.TypeLiteral;
         }
         else if (this.expose === "none") {
             return false;

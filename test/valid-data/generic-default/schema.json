@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "definitions": {
+        "main.MyObject": {
+            "$ref": "#/definitions/main.Generic"
+        },
+        "main.Generic": {
+            "type": "object",
+            "properties": {
+                "foo": {
+                    "type": "number"
+                }
+            },
+            "required": [
+                "foo"
+            ],
+            "additionalProperties": false
+        }
+    },
+    "$ref": "#/definitions/main.MyObject"
+}

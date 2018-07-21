@@ -51,7 +51,7 @@ function assertSchema(name: string, type: string, only: boolean = false): void {
         writeFileSync(resolve(`${basePath}/${name}/schema.json`), JSON.stringify(actual, null, 4), "utf8");
 
         assert.isObject(actual);
-        assert.deepEqual(actual, expected);
+        assert.deepEqual(actual, expected, JSON.stringify({ actual, expected }, null, 2));
 
         validator.validateSchema(actual);
         assert.isNull(validator.errors);
@@ -123,6 +123,7 @@ describe("valid-data", () => {
     assertSchema("type-mapped-literal", "MyObject");
     assertSchema("type-mapped-generic", "MyObject");
     assertSchema("type-mapped-native", "MyObject");
+    assertSchema("type-mapped-widened", "MyObject");
 
     assertSchema("generic-simple", "MyObject");
     assertSchema("generic-arrays", "MyObject");
@@ -131,6 +132,7 @@ describe("valid-data", () => {
     assertSchema("generic-anonymous", "MyObject");
     assertSchema("generic-recursive", "MyObject");
     assertSchema("generic-hell", "MyObject");
+    assertSchema("generic-default", "MyObject");
 
     assertSchema("nullable-null", "MyObject");
 
