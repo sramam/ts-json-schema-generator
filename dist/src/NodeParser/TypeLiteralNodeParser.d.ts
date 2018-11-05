@@ -8,7 +8,7 @@ export declare class TypeLiteralNodeParser implements SubNodeParser {
     constructor(childNodeParser: NodeParser, visibility: string);
     supportsNode(node: ts.TypeLiteralNode): boolean;
     createType(node: ts.TypeLiteralNode, context: Context): BaseType;
-    private getProperties(node, context);
-    private getAdditionalProperties(node, context);
-    private getTypeId(node, context);
+    private getProperties;
+    private getAdditionalProperties;
+    private getTypeId;
 }

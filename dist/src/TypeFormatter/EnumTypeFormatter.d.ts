@@ -6,5 +6,5 @@ export declare class EnumTypeFormatter implements SubTypeFormatter {
     supportsType(type: EnumType): boolean;
     getDefinition(type: EnumType): Definition;
     getChildren(type: EnumType): BaseType[];
-    private getValueType(value);
+    private getValueType;
 }

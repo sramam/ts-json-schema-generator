@@ -8,6 +8,6 @@ export declare class EnumNodeParser implements SubNodeParser {
     constructor(typeChecker: ts.TypeChecker, visibility: string);
     supportsNode(node: ts.EnumDeclaration | ts.EnumMember): boolean;
     createType(node: ts.EnumDeclaration | ts.EnumMember, context: Context): BaseType;
-    private getMemberValue(member, index);
-    private parseInitializer(initializer);
+    private getMemberValue;
+    private parseInitializer;
 }

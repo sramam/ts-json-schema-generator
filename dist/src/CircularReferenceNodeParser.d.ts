@@ -8,5 +8,5 @@ export declare class CircularReferenceNodeParser implements SubNodeParser {
     constructor(childNodeParser: SubNodeParser);
     supportsNode(node: ts.Node): boolean;
     createType(node: ts.Node, context: Context): BaseType;
-    private createCacheKey(node, context);
+    private createCacheKey;
 }

@@ -8,5 +8,5 @@ export declare class ExpressionWithTypeArgumentsNodeParser implements SubNodePar
     constructor(typeChecker: ts.TypeChecker, childNodeParser: NodeParser);
     supportsNode(node: ts.ExpressionWithTypeArguments): boolean;
     createType(node: ts.ExpressionWithTypeArguments, context: Context): BaseType;
-    private createSubContext(node, parentContext);
+    private createSubContext;
 }

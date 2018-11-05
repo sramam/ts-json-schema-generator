@@ -9,7 +9,7 @@ export declare class ObjectTypeFormatter implements SubTypeFormatter {
     supportsType(type: ObjectType): boolean;
     getDefinition(type: ObjectType): Definition;
     getChildren(type: ObjectType): BaseType[];
-    private getObjectDefinition(type);
-    private getAdditionalProperties(additionalProperties);
-    private prepareObjectProperty(property);
+    private getObjectDefinition;
+    private getAdditionalProperties;
+    private prepareObjectProperty;
 }

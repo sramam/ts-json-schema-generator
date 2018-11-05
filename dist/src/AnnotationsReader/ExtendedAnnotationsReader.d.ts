@@ -6,7 +6,7 @@ export declare class ExtendedAnnotationsReader extends BasicAnnotationsReader {
     constructor(typeChecker: ts.TypeChecker);
     getAnnotations(node: ts.Node): Annotations | undefined;
     isNullable(node: ts.Node): boolean;
-    private getDescriptionAnnotation(node);
-    private getAllAnnotations(node);
-    private getTypeAnnotation(node);
+    private getDescriptionAnnotation;
+    private getAllAnnotations;
+    private getTypeAnnotation;
 }

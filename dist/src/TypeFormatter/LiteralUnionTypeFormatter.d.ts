@@ -6,7 +6,7 @@ export declare class LiteralUnionTypeFormatter implements SubTypeFormatter {
     supportsType(type: UnionType): boolean;
     getDefinition(type: UnionType): Definition;
     getChildren(type: UnionType): BaseType[];
-    private isLiteralUnion(type);
-    private getLiteralValue(value);
-    private getLiteralType(value);
+    private isLiteralUnion;
+    private getLiteralValue;
+    private getLiteralType;
 }

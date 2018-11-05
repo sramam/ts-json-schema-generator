@@ -9,5 +9,5 @@ export declare class AnnotatedNodeParser implements SubNodeParser {
     constructor(childNodeParser: SubNodeParser, annotationsReader: AnnotationsReader);
     supportsNode(node: ts.Node): boolean;
     createType(node: ts.Node, context: Context): BaseType;
-    private getAnnotatedNode(node);
+    private getAnnotatedNode;
 }

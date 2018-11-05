@@ -10,6 +10,6 @@ export declare class ExposeNodeParser implements SubNodeParser {
     constructor(program: ts.Program, subNodeParser: SubNodeParser, expose: "all" | "none" | "export");
     supportsNode(node: ts.Node): boolean;
     createType(node: ts.Node, context: Context): BaseType;
-    private isExportNode(node);
-    private getDefinitionName(node, context);
+    private isExportNode;
+    private getDefinitionName;
 }

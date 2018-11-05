@@ -9,5 +9,5 @@ export declare class ChainNodeParser implements SubNodeParser {
     addNodeParser(nodeParser: SubNodeParser): this;
     supportsNode(node: ts.Node): boolean;
     createType(node: ts.Node, context: Context): BaseType;
-    private getNodeParser(node, context);
+    private getNodeParser;
 }

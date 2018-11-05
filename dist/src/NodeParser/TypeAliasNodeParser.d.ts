@@ -8,5 +8,5 @@ export declare class TypeAliasNodeParser implements SubNodeParser {
     constructor(typeChecker: ts.TypeChecker, childNodeParser: NodeParser);
     supportsNode(node: ts.TypeAliasDeclaration): boolean;
     createType(node: ts.TypeAliasDeclaration, context: Context): BaseType;
-    private getTypeId(node, context);
+    private getTypeId;
 }

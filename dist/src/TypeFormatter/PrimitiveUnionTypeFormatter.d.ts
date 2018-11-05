@@ -6,6 +6,6 @@ export declare class PrimitiveUnionTypeFormatter implements SubTypeFormatter {
     supportsType(type: UnionType): boolean;
     getDefinition(type: UnionType): Definition;
     getChildren(type: UnionType): BaseType[];
-    private isPrimitiveUnion(type);
-    private getPrimitiveType(item);
+    private isPrimitiveUnion;
+    private getPrimitiveType;
 }

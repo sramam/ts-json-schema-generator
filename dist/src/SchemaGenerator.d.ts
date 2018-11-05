@@ -9,10 +9,10 @@ export declare class SchemaGenerator {
     private allTypes;
     constructor(program: ts.Program, nodeParser: NodeParser, typeFormatter: TypeFormatter);
     createSchema(fullName: string): Schema;
-    private findRootNode(fullName);
-    private inspectNode(node, typeChecker, allTypes);
-    private isExportType(node);
-    private isGenericType(node);
-    private getRootTypeDefinition(rootType);
-    private getRootChildDefinitions(rootType);
+    private findRootNode;
+    private inspectNode;
+    private isExportType;
+    private isGenericType;
+    private getRootTypeDefinition;
+    private getRootChildDefinitions;
 }

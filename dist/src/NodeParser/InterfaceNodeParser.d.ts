@@ -9,8 +9,8 @@ export declare class InterfaceNodeParser implements SubNodeParser {
     constructor(typeChecker: ts.TypeChecker, childNodeParser: NodeParser, visibility: string);
     supportsNode(node: ts.InterfaceDeclaration): boolean;
     createType(node: ts.InterfaceDeclaration, context: Context): BaseType;
-    private getBaseTypes(node, context);
-    private getProperties(node, context);
-    private getAdditionalProperties(node, context);
-    private getTypeId(node, context);
+    private getBaseTypes;
+    private getProperties;
+    private getAdditionalProperties;
+    private getTypeId;
 }

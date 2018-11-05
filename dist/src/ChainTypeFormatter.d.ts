@@ -8,5 +8,5 @@ export declare class ChainTypeFormatter implements SubTypeFormatter {
     supportsType(type: BaseType): boolean;
     getDefinition(type: BaseType): Definition;
     getChildren(type: BaseType): BaseType[];
-    private getTypeFormatter(type);
+    private getTypeFormatter;
 }

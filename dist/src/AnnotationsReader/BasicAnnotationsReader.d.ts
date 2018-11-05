@@ -7,6 +7,6 @@ export declare class BasicAnnotationsReader implements AnnotationsReader {
     private static jsonTags;
     constructor(typeChecker: ts.TypeChecker);
     getAnnotations(node: ts.Node): Annotations | undefined;
-    private parseJsDocTag(jsDocTag);
-    private parseJson(value);
+    private parseJsDocTag;
+    private parseJson;
 }
