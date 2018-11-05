@@ -75,20 +75,29 @@ describe("config", () => {
         {type: "MyObject", expose: "export", topRef: true, jsDoc: "extended", visibility });
     assertSchema("jsdoc-inheritance",
         {type: "MyObject", expose: "export", topRef: true, jsDoc: "extended", visibility });
-    assertSchema("strict-tuples-true", {
+    // assertSchema("strict-tuples-true", {
+    //     type: "MyObject",
+    //     expose: "export",
+    //     topRef: true,
+    //     jsDoc: "none",
+    //     strictTuples: true,
+    //     visibility,
+    // });
+    // assertSchema("strict-tuples-false", {
+    //     type: "MyObject",
+    //     expose: "export",
+    //     topRef: true,
+    //     jsDoc: "none",
+    //     strictTuples: false,
+    //     visibility,
+    // });
+    // ensure that skipping type checking doesn't alter the JSON schema output
+    assertSchema("jsdoc-complex-extended", {
         type: "MyObject",
         expose: "export",
         topRef: true,
-        jsDoc: "none",
-        strictTuples: true,
-        visibility,
-    });
-    assertSchema("strict-tuples-false", {
-        type: "MyObject",
-        expose: "export",
-        topRef: true,
-        jsDoc: "none",
-        strictTuples: false,
+        jsDoc: "extended",
+        skipTypeCheck: true,
         visibility,
     });
     assertSchema("jsdoc-visible",

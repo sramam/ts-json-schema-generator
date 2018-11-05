@@ -6,6 +6,7 @@ export interface PartialConfig {
     sortProps?: boolean;
     strictTuples?: boolean;
     visibility: string;
+    skipTypeCheck?: boolean;
 }
 
 export interface Config extends PartialConfig {
@@ -20,4 +21,5 @@ export const DEFAULT_CONFIG: PartialConfig = {
     sortProps: true,
     strictTuples: false,
     visibility: "",
+    skipTypeCheck: false,
 };

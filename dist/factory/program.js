@@ -55,9 +55,11 @@ function createProgram(config) {
     const program = path.extname(config.path) === ".json" ?
         createProgramFromConfig(config.path) :
         createProgramFromGlob(config.path);
-    const diagnostics = ts.getPreEmitDiagnostics(program);
-    if (diagnostics.length) {
-        throw new DiagnosticError_1.DiagnosticError(diagnostics);
+    if (!config.skipTypeCheck) {
+        const diagnostics = ts.getPreEmitDiagnostics(program);
+        if (diagnostics.length) {
+            throw new DiagnosticError_1.DiagnosticError(diagnostics);
+        }
     }
     return program;
 }

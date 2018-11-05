@@ -6,5 +6,5 @@
     "bin": true
   },
   "files.trimTrailingWhitespace": true,
-  "deepscan.ignoreConfirmWarning": true
+  "typescript.tsdk": "node_modules/typescript/lib",
 }

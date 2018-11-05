@@ -3,6 +3,7 @@
     "definitions": {
         "main.MyTuple": {
             "type": "array",
+            "minItems": 2,
             "items": [
                 {
                     "type": "string"
@@ -11,17 +12,7 @@
                     "type": "number"
                 }
             ],
-            "minItems": 2,
-            "additionalItems": {
-                "anyOf": [
-                    {
-                        "type": "string"
-                    },
-                    {
-                        "type": "number"
-                    }
-                ]
-            }
+            "maxItems": 2
         }
     },
     "$ref": "#/definitions/main.MyTuple"

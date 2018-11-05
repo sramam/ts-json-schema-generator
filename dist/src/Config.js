@@ -7,5 +7,6 @@ exports.DEFAULT_CONFIG = {
     sortProps: true,
     strictTuples: false,
     visibility: "",
+    skipTypeCheck: false,
 };
 //# sourceMappingURL=Config.js.map

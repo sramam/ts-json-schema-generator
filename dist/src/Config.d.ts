@@ -5,6 +5,7 @@ export interface PartialConfig {
     sortProps?: boolean;
     strictTuples?: boolean;
     visibility: string;
+    skipTypeCheck?: boolean;
 }
 export interface Config extends PartialConfig {
     path: string;

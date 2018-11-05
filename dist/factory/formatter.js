@@ -15,8 +15,10 @@ const LiteralUnionTypeFormatter_1 = require("../src/TypeFormatter/LiteralUnionTy
 const NullTypeFormatter_1 = require("../src/TypeFormatter/NullTypeFormatter");
 const NumberTypeFormatter_1 = require("../src/TypeFormatter/NumberTypeFormatter");
 const ObjectTypeFormatter_1 = require("../src/TypeFormatter/ObjectTypeFormatter");
+const OptionalTypeFormatter_1 = require("../src/TypeFormatter/OptionalTypeFormatter");
 const PrimitiveUnionTypeFormatter_1 = require("../src/TypeFormatter/PrimitiveUnionTypeFormatter");
 const ReferenceTypeFormatter_1 = require("../src/TypeFormatter/ReferenceTypeFormatter");
+const RestTypeFormatter_1 = require("../src/TypeFormatter/RestTypeFormatter");
 const StringTypeFormatter_1 = require("../src/TypeFormatter/StringTypeFormatter");
 const TupleTypeFormatter_1 = require("../src/TypeFormatter/TupleTypeFormatter");
 const UndefinedTypeFormatter_1 = require("../src/TypeFormatter/UndefinedTypeFormatter");
@@ -40,8 +42,10 @@ function createFormatter(config) {
         .addTypeFormatter(new AliasTypeFormatter_1.AliasTypeFormatter(circularReferenceTypeFormatter))
         .addTypeFormatter(new PrimitiveUnionTypeFormatter_1.PrimitiveUnionTypeFormatter())
         .addTypeFormatter(new LiteralUnionTypeFormatter_1.LiteralUnionTypeFormatter())
+        .addTypeFormatter(new OptionalTypeFormatter_1.OptionalTypeFormatter(circularReferenceTypeFormatter))
+        .addTypeFormatter(new RestTypeFormatter_1.RestTypeFormatter(circularReferenceTypeFormatter))
         .addTypeFormatter(new ArrayTypeFormatter_1.ArrayTypeFormatter(circularReferenceTypeFormatter))
-        .addTypeFormatter(new TupleTypeFormatter_1.TupleTypeFormatter(circularReferenceTypeFormatter, config))
+        .addTypeFormatter(new TupleTypeFormatter_1.TupleTypeFormatter(circularReferenceTypeFormatter))
         .addTypeFormatter(new UnionTypeFormatter_1.UnionTypeFormatter(circularReferenceTypeFormatter))
         .addTypeFormatter(new IntersectionTypeFormatter_1.IntersectionTypeFormatter(circularReferenceTypeFormatter));
     return circularReferenceTypeFormatter;

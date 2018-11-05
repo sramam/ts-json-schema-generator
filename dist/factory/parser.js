@@ -22,7 +22,9 @@ const NullLiteralNodeParser_1 = require("../src/NodeParser/NullLiteralNodeParser
 const NumberLiteralNodeParser_1 = require("../src/NodeParser/NumberLiteralNodeParser");
 const NumberTypeNodeParser_1 = require("../src/NodeParser/NumberTypeNodeParser");
 const ObjectTypeNodeParser_1 = require("../src/NodeParser/ObjectTypeNodeParser");
+const OptionalTypeNodeParser_1 = require("../src/NodeParser/OptionalTypeNodeParser");
 const ParenthesizedNodeParser_1 = require("../src/NodeParser/ParenthesizedNodeParser");
+const RestTypeNodeParser_1 = require("../src/NodeParser/RestTypeNodeParser");
 const StringLiteralNodeParser_1 = require("../src/NodeParser/StringLiteralNodeParser");
 const StringTypeNodeParser_1 = require("../src/NodeParser/StringTypeNodeParser");
 const TupleNodeParser_1 = require("../src/NodeParser/TupleNodeParser");
@@ -79,6 +81,8 @@ function createParser(program, config) {
         .addNodeParser(new UnionNodeParser_1.UnionNodeParser(typeChecker, chainNodeParser, config.visibility))
         .addNodeParser(new IntersectionNodeParser_1.IntersectionNodeParser(typeChecker, chainNodeParser, config.visibility))
         .addNodeParser(new TupleNodeParser_1.TupleNodeParser(typeChecker, chainNodeParser, config.visibility))
+        .addNodeParser(new OptionalTypeNodeParser_1.OptionalTypeNodeParser(chainNodeParser))
+        .addNodeParser(new RestTypeNodeParser_1.RestTypeNodeParser(chainNodeParser))
         .addNodeParser(new CallExpressionParser_1.CallExpressionParser(typeChecker, chainNodeParser))
         .addNodeParser(withCircular(withExpose(withJsDoc(new TypeAliasNodeParser_1.TypeAliasNodeParser(typeChecker, chainNodeParser)))))
         .addNodeParser(withExpose(withJsDoc(new EnumNodeParser_1.EnumNodeParser(typeChecker, config.visibility))))

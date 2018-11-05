@@ -1,5 +1,4 @@
 import { assert } from "chai";
-import * as hookStd from "hook-std";
 import { resolve } from "path";
 import * as ts from "typescript";
 import { createFormatter } from "../factory/formatter";
@@ -20,7 +19,6 @@ function assertSchema(name: string, type: string, message: string): void {
             visibility: "hide",
         };
 
-        const unhook = hookStd.stderr((out: string) => "");
         const program: ts.Program = createProgram(config);
         const generator: SchemaGenerator = new SchemaGenerator(
             program,
@@ -29,7 +27,6 @@ function assertSchema(name: string, type: string, message: string): void {
         );
 
         assert.throws(() => generator.createSchema(type), message);
-        unhook();
     });
 }
 
