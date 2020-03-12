@@ -42,7 +42,7 @@
     "glob": "~7.1.2",
     "hook-std": "^0.4.0",
     "json-stable-stringify": "^1.0.1",
-    "ts-node": "^3.3.0",
+    "ts-node": "^8.0.0",
     "typescript": "~2.5.2"
   },
   "devDependencies": {
